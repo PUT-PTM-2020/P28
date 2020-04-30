@@ -27,6 +27,7 @@
 #include "lis3dsh.h"
 #include "ili9341.h"
 #include <stdlib.h>
+#include "game.h"
 
 /* USER CODE END Includes */
 
@@ -55,16 +56,8 @@ TIM_HandleTypeDef htim5;
 /* USER CODE BEGIN PV */
 
 float accX, accY, accZ, out[4];
-uint16_t val1, val2, val3, val4;
-uint16_t butt1=0,butt2=0,butt3=0,butt4=0;
 int time=0;
 char cstr[16];
-uint16_t background = 0x2137;
-uint16_t textcolor = ILI9341_BLACK;
-uint16_t selectcolor = ILI9341_WHITE;
-uint16_t place_in_menu=1;
-uint16_t place_in_game=1;
-uint16_t choice=1;
 
 /* USER CODE END PV */
 
@@ -86,80 +79,14 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 		butt3=0;
 		butt4=0;
 
-		switch (GPIO_Pin){
-		case 2: //przycisk 1 --UP
-			HAL_GPIO_TogglePin(GPIOD,GPIO_PIN_12);
-			//ILI9341_WriteString(10, 10, "Witam serdecznie", Font_7x10, textcolor, background);
-			choice=1;
-			break;
-		case 4: //przycisk 2 --DOWN
-			HAL_GPIO_TogglePin(GPIOD,GPIO_PIN_13);
-			//ILI9341_WriteString(10, 10, "Dobry wieczor", Font_7x10, textcolor, background);
-			choice=2;
-			break;
-		case 8: //przycisk 3 --ENTER
-			HAL_GPIO_TogglePin(GPIOD,GPIO_PIN_14);
-			//ILI9341_WriteString(10, 10, "Szczesc Boze", Font_7x10, textcolor, background);
-			switch(place_in_menu){
-			case 1:
-				place_in_menu=2;
-				ILI9341_FillRectangle(36, 150, 168, 50, background);
-				break;
-			case 2:
-				place_in_game=2;
-				break;
-			}
-			break;
-		case 16: //przycisk 4 --ESCAPE
-			HAL_GPIO_TogglePin(GPIOD,GPIO_PIN_15);
-			//ILI9341_WriteString(10, 10, "Dzien dobry", Font_7x10, textcolor, background);
-			switch(place_in_menu){
-			case 2:
-				place_in_menu=1;
-				ILI9341_FillRectangle(36, 150, 168, 50, background);
-				break;
-			}
-			break;
-		}
-	}
-}
-
-void display_menu(){
-	ILI9341_WriteString(56, 1, "POLIMAZE", Font_16x26, textcolor, background);
-	ILI9341_WriteString(21, 30, "Kulka w labiryncie", Font_11x18, textcolor, background);
-
-	switch(place_in_menu){ //miejsce w menu
-	case 1: //poczatek
-		ILI9341_WriteString(92, 170, "Nowa gra", Font_7x10, selectcolor, background);
-		break;
-	case 2: //wybor poziomu trudnosci
-		ILI9341_WriteString(36, 150, "Wybierz poziom trudnosci", Font_7x10, textcolor, background);
-		switch(choice)
-		{
-		case 1:
-			ILI9341_WriteString(102, 170, "Latwy", Font_7x10, selectcolor, background);
-			ILI9341_WriteString(99, 185, "Trudny", Font_7x10, textcolor, background);
-			break;
-		case 2:
-			ILI9341_WriteString(102, 170, "Latwy", Font_7x10, textcolor, background);
-			ILI9341_WriteString(99, 185, "Trudny", Font_7x10, selectcolor, background);
-			break;
-		}
-		break;
+		buttons(GPIO_Pin);
 	}
 }
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 	if(htim->Instance == TIM4)
 		{
-			switch(place_in_game){
-			case 1:
-				display_menu();
-				break;
-			case 2:
-				//this is game
-				break;
-			}
+			game();
 
 			if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_1) == GPIO_PIN_SET)
 				butt1++;
