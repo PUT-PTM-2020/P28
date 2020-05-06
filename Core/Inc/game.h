@@ -1,4 +1,5 @@
 #include "ili9341.h"
+#include "acc_ball.h"
 
 uint16_t butt1=0,butt2=0,butt3=0,butt4=0;
 uint16_t background = 0x2137;
@@ -110,7 +111,7 @@ void display_menu(){
 }
 
 void display_game(){
-
+	display_ball(accX, accY);
 }
 
 void game(){
@@ -119,7 +120,7 @@ void game(){
 			display_menu();
 			break;
 		case 2:
-			//display_game(accX, accY);
+			display_game();
 			break;
 		}
 }
