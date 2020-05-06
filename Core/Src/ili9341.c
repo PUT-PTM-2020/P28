@@ -307,7 +307,7 @@ void ILI9341_InvertColors(bool invert) {
 }
 void ILI9341_DrawLine(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16_t color)
 {
-		while( x1<x2)
+		while( x1<=x2)
 		{
 			ILI9341_DrawPixel(x1, y1 , color);
 			x1++;
@@ -321,13 +321,14 @@ void ILI9341_DrawFilledCircle(uint16_t x0, uint16_t y0, uint16_t r, uint16_t col
     ILI9341_DrawPixel(x0, y0 - r, color);
     ILI9341_DrawPixel(x0 + r, y0, color);
     ILI9341_DrawPixel(x0 - r, y0, color);
-
+    ILI9341_DrawLine(x0 - r, y0, x0 + r, y0, color);
 
     while (r>0)
     {
+    	r--;
     	ILI9341_DrawLine(x0 - r, y0+1, x0 + r, y0+1, color);
     	ILI9341_DrawLine(x0 - r, y0-1, x0 + r, y0-1, color);
-    	r--;
+
     }
 }
 
