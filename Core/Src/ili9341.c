@@ -312,17 +312,17 @@ void ILI9341_DrawLine(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint16
 	uint16_t tmp;
 
 	/* Check for overflow */
-	if (x0 >= ILI9341_Opts.width) {
-		x0 = ILI9341_Opts.width - 1;
+	if (x0 >= ILI9341_WIDTH) {
+		x0 = ILI9341_WIDTH - 1;
 	}
-	if (x1 >= ILI9341_Opts.width) {
-		x1 = ILI9341_Opts.width - 1;
+	if (x1 >= ILI9341_WIDTH) {
+		x1 = ILI9341_WIDTH - 1;
 	}
-	if (y0 >= ILI9341_Opts.height) {
-		y0 = ILI9341_Opts.height - 1;
+	if (y0 >= ILI9341_HEIGHT) {
+		y0 = ILI9341_HEIGHT - 1;
 	}
-	if (y1 >= ILI9341_Opts.height) {
-		y1 = ILI9341_Opts.height - 1;
+	if (y1 >= ILI9341_HEIGHT) {
+		y1 = ILI9341_HEIGHT - 1;
 	}
 
 	/* Check correction */
