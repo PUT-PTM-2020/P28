@@ -322,13 +322,12 @@ void ILI9341_DrawFilledCircle(uint16_t x0, uint16_t y0, uint16_t r, uint16_t col
     ILI9341_DrawPixel(x0 + r, y0, color);
     ILI9341_DrawPixel(x0 - r, y0, color);
     ILI9341_DrawLine(x0 - r, y0, x0 + r, y0, color);
-
-    while (r>0)
+int i=r;
+    if(i>0)
     {
-    	r--;
-    	ILI9341_DrawLine(x0 - r, y0+1, x0 + r, y0+1, color);
-    	ILI9341_DrawLine(x0 - r, y0-1, x0 + r, y0-1, color);
-
+    	ILI9341_DrawLine(x0 - i, y0+1, x0 + i, y0+1, color);
+    	ILI9341_DrawLine(x0 - i, y0-1, x0 + i, y0-1, color);
+    	i--;
     }
 }
 
