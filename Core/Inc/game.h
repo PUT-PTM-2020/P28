@@ -119,7 +119,7 @@ void game(){
 			display_menu();
 			break;
 		case 2:
-			//display_game();
+			//display_game(accX, accY);
 			break;
 		}
 }
