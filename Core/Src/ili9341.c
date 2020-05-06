@@ -305,4 +305,95 @@ void ILI9341_InvertColors(bool invert) {
     ILI9341_WriteCommand(invert ? 0x21 /* INVON */ : 0x20 /* INVOFF */);
     ILI9341_Unselect();
 }
+void ILI9341_DrawLine(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint16_t color) {
+
+
+	int16_t dx, dy, sx, sy, err, e2;
+	uint16_t tmp;
+
+	/* Check for overflow */
+	if (x0 >= ILI9341_Opts.width) {
+		x0 = ILI9341_Opts.width - 1;
+	}
+	if (x1 >= ILI9341_Opts.width) {
+		x1 = ILI9341_Opts.width - 1;
+	}
+	if (y0 >= ILI9341_Opts.height) {
+		y0 = ILI9341_Opts.height - 1;
+	}
+	if (y1 >= ILI9341_Opts.height) {
+		y1 = ILI9341_Opts.height - 1;
+	}
+
+	/* Check correction */
+	if (x0 > x1) {
+		tmp = x0;
+		x0 = x1;
+		x1 = tmp;
+	}
+	if (y0 > y1) {
+		tmp = y0;
+		y0 = y1;
+		y1 = tmp;
+	}
+
+	dx = x1 - x0;
+	dy = y1 - y0;
+
+	/* Vertical or horizontal line */
+	if (dx == 0 || dy == 0) {
+		ILI9341_INT_Fill(x0, y0, x1, y1, color);
+		return;
+	}
+
+	sx = (x0 < x1) ? 1 : -1;
+	sy = (y0 < y1) ? 1 : -1;
+	err = ((dx > dy) ? dx : -dy) / 2;
+
+	while (1) {
+		ILI9341_DrawPixel(x0, y0, color);
+		if (x0 == x1 && y0 == y1) {
+			break;
+		}
+		e2 = err;
+		if (e2 > -dx) {
+			err -= dy;
+			x0 += sx;
+		}
+		if (e2 < dy) {
+			err += dx;
+			y0 += sy;
+		}
+	}
+}
+void ILI9341_DrawFilledCircle(int16_t x0, int16_t y0, int16_t r, uint16_t color) {
+	int16_t f = 1 - r;
+	int16_t ddF_x = 1;
+	int16_t ddF_y = -2 * r;
+	int16_t x = 0;
+	int16_t y = r;
+
+    ILI9341_DrawPixel(x0, y0 + r, color);
+    ILI9341_DrawPixel(x0, y0 - r, color);
+    ILI9341_DrawPixel(x0 + r, y0, color);
+    ILI9341_DrawPixel(x0 - r, y0, color);
+    ILI9341_DrawLine(x0 - r, y0, x0 + r, y0, color);
+
+    while (x < y) {
+        if (f >= 0) {
+            y--;
+            ddF_y += 2;
+            f += ddF_y;
+        }
+        x++;
+        ddF_x += 2;
+        f += ddF_x;
+
+        ILI9341_DrawLine(x0 - x, y0 + y, x0 + x, y0 + y, color);
+        ILI9341_DrawLine(x0 + x, y0 - y, x0 - x, y0 - y, color);
+
+        ILI9341_DrawLine(x0 + y, y0 + x, x0 - y, y0 + x, color);
+        ILI9341_DrawLine(x0 + y, y0 - x, x0 - y, y0 - x, color);
+    }
+}
 
