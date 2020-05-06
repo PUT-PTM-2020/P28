@@ -13,8 +13,6 @@ float accX, accY, accZ, out[4];
 int time=0;
 char cstr[16];
 
-TIM_HandleTypeDef htim3;
-
 void buttons(uint16_t GPIO_Pin){
 	switch (GPIO_Pin){
 		case 2: //przycisk 1 --UP
@@ -59,8 +57,6 @@ void buttons(uint16_t GPIO_Pin){
 				case 2:
 					place_in_game=2;
 					ILI9341_FillScreen(background);
-					time=0;
-					HAL_TIM_Base_Start_IT(&htim3);
 					return;
 					break;
 				}
@@ -82,7 +78,6 @@ void buttons(uint16_t GPIO_Pin){
 				break;
 			case 2:
 				//zapauzowanie gry
-				HAL_TIM_Base_Stop_IT(&htim3);
 				return;
 				break;
 			case 3:

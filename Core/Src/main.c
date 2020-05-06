@@ -49,6 +49,7 @@
 SPI_HandleTypeDef hspi1;
 SPI_HandleTypeDef hspi3;
 
+TIM_HandleTypeDef htim3;
 TIM_HandleTypeDef htim4;
 TIM_HandleTypeDef htim5;
 
@@ -153,6 +154,8 @@ int main(void)
   LISInit();
 
   HAL_TIM_Base_Start_IT(&htim4);
+
+  //HAL_TIM_Base_Start_IT(&htim3);
 
   /* USER CODE END 2 */
 
