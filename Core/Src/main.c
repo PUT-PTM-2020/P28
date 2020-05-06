@@ -84,6 +84,11 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 		{
 			game();
 
+			LIS3DSH_ReadACC(out);
+			accX = out[0];
+			accY = out[1];
+			accZ = out[2];
+
 			if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_1) == GPIO_PIN_SET)
 				butt1++;
 			if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_2) == GPIO_PIN_SET)
@@ -150,7 +155,7 @@ int main(void)
 
   HAL_TIM_Base_Start_IT(&htim4);
 
-  HAL_TIM_Base_Start_IT(&htim3);
+  //HAL_TIM_Base_Start_IT(&htim3);
 
   /* USER CODE END 2 */
 
@@ -158,10 +163,6 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  LIS3DSH_ReadACC(out);
-	  accX = out[0];
-	  accY = out[1];
-	  accZ = out[2];
 
     /* USER CODE END WHILE */
 
