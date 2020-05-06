@@ -316,35 +316,18 @@ void ILI9341_DrawLine(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16
 
 void ILI9341_DrawFilledCircle(uint16_t x0, uint16_t y0, uint16_t r, uint16_t color)
 {
-	uint16_t f = 1 - r;
-	uint16_t ddF_x = 1;
-	uint16_t ddF_y = -2 * r;
-	uint16_t x = 0;
-	uint16_t y = r;
 
     ILI9341_DrawPixel(x0, y0 + r, color);
     ILI9341_DrawPixel(x0, y0 - r, color);
     ILI9341_DrawPixel(x0 + r, y0, color);
     ILI9341_DrawPixel(x0 - r, y0, color);
-    ILI9341_DrawLine(x0 - r, y0, x0 + r, y0, color);
 
-    while (x < y)
+
+    while (r>0)
     {
-        if (f >= 0)
-        {
-            y--;
-            ddF_y += 2;
-            f += ddF_y;
-        }
-        x++;
-        ddF_x += 2;
-        f += ddF_x;
-
-        ILI9341_DrawLine(x0 - x, y0 + y, x0 + x, y0 + y, color);
-        ILI9341_DrawLine(x0 + x, y0 - y, x0 - x, y0 - y, color);
-
-        ILI9341_DrawLine(x0 + y, y0 + x, x0 - y, y0 + x, color);
-        ILI9341_DrawLine(x0 + y, y0 - x, x0 - y, y0 - x, color);
+    	ILI9341_DrawLine(x0 - r, y0+1, x0 + r, y0+1, color);
+    	ILI9341_DrawLine(x0 - r, y0-1, x0 + r, y0-1, color);
+    	r--;
     }
 }
 

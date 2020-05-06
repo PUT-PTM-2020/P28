@@ -20,7 +20,7 @@ void display_ball(float accX, float accY){
 	int y = ILI9341_HEIGHT * accY / 32768;
 
 	ILI9341_DrawFilledCircle(ILI9341_WIDTH / 2 + x, ILI9341_HEIGHT / 2 - y, 10, 10);
-	ILI9341_FillScreen(0x2137);
+
 }
 void acc_ball(float accX, float accY){
 
