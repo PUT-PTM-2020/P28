@@ -150,7 +150,7 @@ int main(void)
 
   HAL_TIM_Base_Start_IT(&htim4);
 
-  //HAL_TIM_Base_Start_IT(&htim3);
+  HAL_TIM_Base_Start_IT(&htim3);
 
   /* USER CODE END 2 */
 

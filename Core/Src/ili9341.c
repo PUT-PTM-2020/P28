@@ -309,7 +309,7 @@ void ILI9341_DrawLine(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16
 {
 		while( x1<x2)
 		{
-			ILI9341_DrawPixel(x, y1 , color);
+			ILI9341_DrawPixel(x1, y1 , color);
 			x1++;
 		}
 }
