@@ -12,34 +12,71 @@ void buttons(uint16_t GPIO_Pin){
 	switch (GPIO_Pin){
 		case 2: //przycisk 1 --UP
 			HAL_GPIO_TogglePin(GPIOD,GPIO_PIN_12);
-			//ILI9341_WriteString(10, 10, "Witam serdecznie", Font_7x10, textcolor, background);
-			choice=1;
-			break;
-		case 4: //przycisk 2 --DOWN
-			HAL_GPIO_TogglePin(GPIOD,GPIO_PIN_13);
-			//ILI9341_WriteString(10, 10, "Dobry wieczor", Font_7x10, textcolor, background);
-			choice=2;
-			break;
-		case 8: //przycisk 3 --ENTER
-			HAL_GPIO_TogglePin(GPIOD,GPIO_PIN_14);
-			//ILI9341_WriteString(10, 10, "Szczesc Boze", Font_7x10, textcolor, background);
-			switch(place_in_menu){
+
+			switch(place_in_game){
 			case 1:
-				place_in_menu=2;
-				ILI9341_FillRectangle(43, 125, 154, 90, background);
-				break;
-			case 2:
-				place_in_game=2;
+				switch(place_in_menu){
+				case 2:
+					choice=1;
+					break;
+				}
 				break;
 			}
 			break;
+
+		case 4: //przycisk 2 --DOWN
+			HAL_GPIO_TogglePin(GPIOD,GPIO_PIN_13);
+
+			switch(place_in_game){
+			case 1:
+				switch(place_in_menu){
+				case 2:
+					choice=2;
+					break;
+				}
+				break;
+			}
+
+			break;
+
+		case 8: //przycisk 3 --ENTER
+			HAL_GPIO_TogglePin(GPIOD,GPIO_PIN_14);
+
+			switch(place_in_game){
+			case 1:
+				switch(place_in_menu){
+				case 1:
+					place_in_menu=2;
+					ILI9341_FillRectangle(43, 125, 154, 90, background);
+					break;
+				case 2:
+					place_in_game=2;
+					ILI9341_FillScreen(background);
+					return;
+					break;
+				}
+				break;
+			}
+			break;
+
 		case 16: //przycisk 4 --ESCAPE
 			HAL_GPIO_TogglePin(GPIOD,GPIO_PIN_15);
-			//ILI9341_WriteString(10, 10, "Dzien dobry", Font_7x10, textcolor, background);
-			switch(place_in_menu){
+
+			switch(place_in_game){
+			case 1:
+				switch(place_in_menu){
+				case 2:
+					place_in_menu=1;
+					ILI9341_FillRectangle(43, 125, 154, 90, background);
+					break;
+				}
+				break;
 			case 2:
-				place_in_menu=1;
-				ILI9341_FillRectangle(43, 125, 154, 90, background);
+				//zapauzowanie gry
+				return;
+				break;
+			case 3:
+
 				break;
 			}
 			break;
@@ -72,13 +109,17 @@ void display_menu(){
 	}
 }
 
+void display_game(){
+
+}
+
 void game(){
 	switch(place_in_game){
 		case 1:
 			display_menu();
 			break;
 		case 2:
-			//this is game
+			//display_game();
 			break;
 		}
 }
