@@ -55,10 +55,6 @@ TIM_HandleTypeDef htim5;
 
 /* USER CODE BEGIN PV */
 
-float accX, accY, accZ, out[4];
-int time=0;
-char cstr[16];
-
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/

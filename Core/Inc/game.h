@@ -9,6 +9,10 @@ uint16_t place_in_menu=1;
 uint16_t place_in_game=1;
 uint16_t choice=1;
 
+float accX, accY, accZ, out[4];
+int time=0;
+char cstr[16];
+
 void buttons(uint16_t GPIO_Pin){
 	switch (GPIO_Pin){
 		case 2: //przycisk 1 --UP
@@ -111,7 +115,7 @@ void display_menu(){
 }
 
 void display_game(){
-	display_ball();
+	display_ball(accX, accY);
 }
 
 void game(){
@@ -120,7 +124,7 @@ void game(){
 			display_menu();
 			break;
 		case 2:
-			//display_game(accX, accY);
+			display_game();
 			break;
 		}
 }

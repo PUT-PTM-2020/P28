@@ -342,7 +342,7 @@ void ILI9341_DrawLine(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint16
 
 	/* Vertical or horizontal line */
 	if (dx == 0 || dy == 0) {
-		ILI9341_INT_Fill(x0, y0, x1, y1, color);
+		ILI9341_DrawLine(x0, y0, x1, y1, color);
 		return;
 	}
 
