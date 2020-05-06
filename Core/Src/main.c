@@ -95,8 +95,6 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 		}
 	if(htim->Instance== TIM3){
 		time++;
-		itoa(time, cstr, 10);
-		ILI9341_WriteString(100, 100, cstr, Font_7x10, textcolor, background);
 	}
 }
 

@@ -116,6 +116,8 @@ void display_menu(){
 
 void display_game(){
 	display_ball(accX, accY);
+	itoa(time, cstr, 10);
+	ILI9341_WriteString(1, 301, cstr, Font_11x18, textcolor, background);
 }
 
 void game(){
