@@ -11,6 +11,9 @@
 #include "ili9341.h"
 #include "lis3dsh.h"
 
+int pozycja_x=0;
+int pozycja_y=0;
+
 void display_ball(int accX, int accY){
 
 	int x = ILI9341_WIDTH * accX / 32768;
@@ -18,15 +21,32 @@ void display_ball(int accX, int accY){
 
 	ILI9341_DrawFilledCircle(ILI9341_WIDTH / 2 + x, ILI9341_HEIGHT / 2 - y, 10, 90);
 }
-void acc_ball(int accX, int accY, int start_x, int start_y){
+void acc_ball(int accX, int accY){
 
 	int x = accX / 32768;
 	int y = accY / 32768;
-	if(x>=0.1 || y>=0.1)
+
+	if(x>=0.1)
 	{
-		ILI9341_DrawFilledCircle(start_x + 10, ILI9341_HEIGHT / 2 - y, 10, 90);
+		pozycja_x+10;
+	}
+	if(y>=0.1)
+	{
+		pozycja_y+10;
+	}
+	if(x<=0.1)
+	{
+		pozycja_x-10;
+	}
+	if(y<=0.1)
+	{
+		pozycja_y-10;
 	}
 
+	ILI9341_DrawFilledCircle(pozycja_x, pozycja_y, 10, 90);
+
 }
+
+
 
 #endif /* INC_ACC_BALL_H_ */
