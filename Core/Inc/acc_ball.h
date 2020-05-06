@@ -12,9 +12,14 @@
 #include "lis3dsh.h"
 
 void display_ball(){
-	ILI9341_DrawFilledCircle(int16_t x0, int16_t y0, int16_t r, uint16_t color);
+	LIS3DSH_ReadACC(out);
+	accX = out[0];
+	accY = out[1];
+	accZ = out[2];
+	int x = ILI9341_WIDTH * accX / 32768;
+	int y = ILI9341_HEIGHT * accY / 32768;
 
+	ILI9341_DrawFilledCircle(ILI9341_WIDTH / 2 + x, ILI9341_HEIGHT / 2 - y, 10, 90);
 }
-
 
 #endif /* INC_ACC_BALL_H_ */
