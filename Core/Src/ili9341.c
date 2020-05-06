@@ -305,7 +305,7 @@ void ILI9341_InvertColors(bool invert) {
     ILI9341_WriteCommand(invert ? 0x21 /* INVON */ : 0x20 /* INVOFF */);
     ILI9341_Unselect();
 }
-void ILI9341_DrawLine(int x1, int y1, int x2, int y2, uint16_t color) {
+void ILI9341_DrawLine(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16_t color) {
 	if(x1<x2)
 	{
 		while( x1==x2)
