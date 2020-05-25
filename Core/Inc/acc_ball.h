@@ -22,7 +22,7 @@ int pozycja_y=0;
 
 void acc_ball(float accX, float accY){
 
-	if(accX>=30 && pozycja_x<100)
+	if(accX>=30 && pozycja_x<99)
 	{
 		pozycja_x+=1;
 	}
