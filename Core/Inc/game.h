@@ -1,5 +1,6 @@
 #include "ili9341.h"
 #include "acc_ball.h"
+#include "maze.h"
 
 uint16_t butt1=0,butt2=0,butt3=0,butt4=0;
 uint16_t background = 0x2137;
@@ -58,7 +59,9 @@ void buttons(uint16_t GPIO_Pin){
 					break;
 				case 2:
 					place_in_game=2;
+					init_maze();
 					ILI9341_FillScreen(background);
+					display_maze();
 					time=0;
 					return;
 					break;
