@@ -18,7 +18,7 @@ int pozycja_y=0;
 //X(120,0)->ostatnia pozycja w prawo->(110,0)->minus ściana(107,0)
 //-X(-119,0)->ostatnia pozycja w lewo->(-109,0)->minus ściana(-106,0)
 //Y(0,150)->ostatnia pozycja w góre->(0,140)->minus ściana i dół(0,137)
-//-Y(0,-149)->ostatnia pozycja w góre->(0,-139)->minus ściana i dół(0,-116)
+//-Y(0,-149)->ostatnia pozycja w góre->(0,-139)->minus ściana i dół(0,-96)
 
 void acc_ball(float accX, float accY){
 
@@ -34,7 +34,7 @@ void acc_ball(float accX, float accY){
 	{
 		pozycja_x-=1;
 	}
-	if(accY<=-30 && pozycja_y>-116)
+	if(accY<=-30 && pozycja_y>-96)
 	{
 		pozycja_y-=1;
 	}
@@ -51,7 +51,7 @@ void acc_ball(float accX, float accY){
 	{
 		pozycja_x-=3;
 	}
-	if(accY<=-350 && pozycja_y>-116)
+	if(accY<=-350 && pozycja_y>-96)
 	{
 		pozycja_y-=3;
 	}
