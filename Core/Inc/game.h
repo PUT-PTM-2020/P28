@@ -75,7 +75,7 @@ void buttons(uint16_t GPIO_Pin){
 				switch(place_in_menu){
 				case 2:
 					place_in_menu=1;
-					//ILI9341_FillRectangle(43, 125, 154, 90, background);
+					ILI9341_FillRectangle(43, 125, 154, 90, background);
 					break;
 				}
 				break;

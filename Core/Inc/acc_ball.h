@@ -14,40 +14,50 @@
 int pozycja_x=0;
 int pozycja_y=0;
 
-void display_ball(float accX, float accY){
-
-	int x = ILI9341_WIDTH * accX / 32768;
-	int y = ILI9341_HEIGHT * accY / 32768;
-
-	ILI9341_DrawFilledCircle(ILI9341_WIDTH / 2 + x, ILI9341_HEIGHT / 2 - y, 10, 10);
-
-}
 void acc_ball(float accX, float accY){
 
-	int x = accX / 32768;
-	int y = accY / 32768;
-
-	if(x>=0.1)
+	if(accX>=30)
 	{
-		//pozycja_x+=2;
+		pozycja_x+=1;
 	}
-	if(y>=0.1)
+	if(accY>=30)
 	{
-		//pozycja_y+=2;
+		pozycja_y+=1;
 	}
-	if(x<=0.1)
+	if(accX<=-30)
 	{
-		//pozycja_x-=2;
+		pozycja_x-=1;
 	}
-	if(y<=0.1)
+	if(accY<=-30)
 	{
-		//pozycja_y-=2;
+		pozycja_y-=1;
 	}
 
-	ILI9341_DrawFilledCircle(pozycja_x, pozycja_y, 10, 10);
+	if(accX>=350)
+	{
+		pozycja_x+=3;
+	}
+	if(accY>=350)
+	{
+		pozycja_y+=3;
+	}
+	if(accX<=-350)
+	{
+		pozycja_x-=3;
+	}
+	if(accY<=-350)
+	{
+		pozycja_y-=3;
+	}
 
 }
 
+void display_ball(float accX, float accY){
 
+	acc_ball(accX,accY);
+
+	ILI9341_DrawFilledCircle(ILI9341_WIDTH / 2 + pozycja_x, ILI9341_HEIGHT / 2 - pozycja_y, 10, 10);
+
+}
 
 #endif /* INC_ACC_BALL_H_ */

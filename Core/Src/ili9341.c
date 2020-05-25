@@ -325,22 +325,37 @@ void ILI9341_DrawLine(uint16_t x0, uint16_t y0, uint16_t l, int vh, uint16_t col
 
 void ILI9341_DrawFilledCircle(uint16_t x0, uint16_t y0, uint16_t r, uint16_t color)
 {
-	int i=0;
-    while(i<r)
+	for(int i=0;i<r;i++)
     {
     	ILI9341_DrawLine(x0 - i, y0 - r + i, i+1, 0, color);
     	ILI9341_DrawLine(x0, y0 + i, 10-i, 0, color);
     	ILI9341_DrawLine(x0 - r + i, y0 + i, 10-i, 0, color);
     	ILI9341_DrawLine(x0, y0 - r + i, i+1, 0, color);
 
-    	ILI9341_DrawPixel(x0, y0-r-1, 0x2137);
-    	ILI9341_DrawPixel(x0-i-1, y0-r+i, 0x2137);
-    	ILI9341_DrawPixel(x0+i+1, y0-r+i, 0x2137);
-    	ILI9341_DrawPixel(x0-i-1, y0+r-i, 0x2137);
-    	ILI9341_DrawPixel(x0+i+1, y0+r-i, 0x2137);
-    	ILI9341_DrawPixel(x0, y0+r+1, 0x2137);
 
-    	i++;
+    	for(int j=1;j<=5;j++){
+
+    		for(int k=0;k<=4;k++){
+    			ILI9341_DrawPixel(x0-k, y0-r-j, 0x2137);
+    			ILI9341_DrawPixel(x0+k, y0-r-j, 0x2137);
+
+    			ILI9341_DrawPixel(x0-k, y0+r+j, 0x2137);
+    			ILI9341_DrawPixel(x0+k, y0+r+j, 0x2137);
+
+    			ILI9341_DrawPixel(x0-r-j, y0-k, 0x2137);
+    			ILI9341_DrawPixel(x0-r-j, y0+k, 0x2137);
+
+    			ILI9341_DrawPixel(x0+r+j, y0-k, 0x2137);
+    			ILI9341_DrawPixel(x0+r+j, y0+k, 0x2137);
+    		}
+
+    		ILI9341_DrawPixel(x0+i+j, y0-r+i, 0x2137);
+    		ILI9341_DrawPixel(x0+i+j, y0+r-i, 0x2137);
+
+    		ILI9341_DrawPixel(x0-i-j, y0-r+i, 0x2137);
+    		ILI9341_DrawPixel(x0-i-j, y0+r-i, 0x2137);
+
+    	}
     }
 }
 
