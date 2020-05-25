@@ -307,14 +307,14 @@ void ILI9341_InvertColors(bool invert) {
 }
 void ILI9341_DrawLine(uint16_t x0, uint16_t y0, uint16_t l, int vh, uint16_t color)
 {
-	if(vh)
+	if(vh) //pionowa - 1
 	{
 		for(int i=0;i<l;i++)
 		{
 			ILI9341_DrawPixel(x0, y0+i, color);
 		}
 	}
-	else
+	else //pozioma - 0
 	{
 		for(int i=0;i<l;i++)
 		{
