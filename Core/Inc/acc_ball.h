@@ -22,36 +22,36 @@ int pozycja_y=0;
 
 void acc_ball(float accX, float accY){
 
-	if(accX>=30 && pozycja_x<107)
+	if(accX>=30 && pozycja_x<100)
 	{
 		pozycja_x+=1;
 	}
-	if(accY>=30 && pozycja_y<137)
+	if(accY>=30 && pozycja_y<142)
 	{
 		pozycja_y+=1;
 	}
-	if(accX<=-30 && pozycja_x>-106)
+	if(accX<=-30 && pozycja_x>-102)
 	{
 		pozycja_x-=1;
 	}
-	if(accY<=-30 && pozycja_y>-96)
+	if(accY<=-30 && pozycja_y>-100)
 	{
 		pozycja_y-=1;
 	}
 
-	if(accX>=350 && pozycja_x<107)
+	if(accX>=350 && pozycja_x<100)
 	{
 		pozycja_x+=3;
 	}
-	if(accY>=350 && pozycja_y<137)
+	if(accY>=350 && pozycja_y<142)
 	{
 		pozycja_y+=3;
 	}
-	if(accX<=-350 && pozycja_x>-106)
+	if(accX<=-350 && pozycja_x>-102)
 	{
 		pozycja_x-=3;
 	}
-	if(accY<=-350 && pozycja_y>-96)
+	if(accY<=-350 && pozycja_y>-100)
 	{
 		pozycja_y-=3;
 	}
