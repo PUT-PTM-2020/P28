@@ -23,38 +23,47 @@ int start_y=18;
 
 void acc_ball(float accX, float accY){
 
-	if(accX>=30 && pozycja_x<219)
+	if(accX>=30 && pozycja_x<203)
 	{
-		pozycja_x+=1;
+		pozycja_x+=1; //ruch w prawo
 	}
-	if(accY>=30 && pozycja_y<260)
+	if(accY>=30 && pozycja_y>0)
 	{
-		pozycja_y-=1;
+		pozycja_y-=1; //ruch w górę
 	}
-	if(accX<=-30 && pozycja_x>18)
+	if(accX<=-30 && pozycja_x>0)
 	{
-		pozycja_x-=1;
+		pozycja_x-=1; //ruch w lewo
 	}
-	if(accY<=-30 && pozycja_y>18)
+	if(accY<=-30 && pozycja_y<243)
 	{
-		pozycja_y+=1;
+		pozycja_y+=1; //ruch w dół
 	}
 
-	if(accX>=350 && pozycja_x<219)
+	if(accX>=350 && pozycja_x<203)
 	{
-		pozycja_x+=3;
+		pozycja_x+=2; //ruch w prawo
+		if(!(pozycja_x<203))
+			pozycja_x=203;
+
 	}
-	if(accY>=350 && pozycja_y<260)
+	if(accY>=350 && pozycja_y>0)
 	{
-		pozycja_y-=3;
+		pozycja_y-=2; //ruch w górę
+		if(!(pozycja_y>0))
+			pozycja_y=0;
 	}
-	if(accX<=-350 && pozycja_x>18)
+	if(accX<=-350 && pozycja_x>0)
 	{
-		pozycja_x-=3;
+		pozycja_x-=2; //ruch w lewo
+		if(!(pozycja_x>0))
+			pozycja_x=0;
 	}
-	if(accY<=-350 && pozycja_y>18)
+	if(accY<=-350 && pozycja_y<243)
 	{
-		pozycja_y+=3;
+		pozycja_y+=2; //ruch w dół
+		if(!(pozycja_y<243))
+			pozycja_y=243;
 	}
 
 }
