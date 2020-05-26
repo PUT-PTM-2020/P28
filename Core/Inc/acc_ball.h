@@ -47,38 +47,63 @@ bool left_wall(float pozycja_x, float pozycja_y){
 }
 void acc_ball(float pozycja_x, float pozycja_y){
 
+<<<<<<< HEAD
 	if(accX>=30 && pozycja_x<219 && )//w prawo
+=======
+	if(accX>=30 && pozycja_x<203)
+>>>>>>> branch 'master' of https://github.com/PUT-PTM-2020/P28.git
 	{
-		pozycja_x+=1;
+		pozycja_x+=1; //ruch w prawo
 	}
+<<<<<<< HEAD
 	if(accY>=30 && pozycja_y<260)//w góre
+=======
+	if(accY>=30 && pozycja_y>0)
+>>>>>>> branch 'master' of https://github.com/PUT-PTM-2020/P28.git
 	{
-		pozycja_y-=1;
+		pozycja_y-=1; //ruch w górę
 	}
+<<<<<<< HEAD
 	if(accX<=-30 && pozycja_x>18)//w lewo
+=======
+	if(accX<=-30 && pozycja_x>0)
+>>>>>>> branch 'master' of https://github.com/PUT-PTM-2020/P28.git
 	{
-		pozycja_x-=1;
+		pozycja_x-=1; //ruch w lewo
 	}
+<<<<<<< HEAD
 	if(accY<=-30 && pozycja_y>18)//w dół
+=======
+	if(accY<=-30 && pozycja_y<243)
+>>>>>>> branch 'master' of https://github.com/PUT-PTM-2020/P28.git
 	{
-		pozycja_y+=1;
+		pozycja_y+=1; //ruch w dół
 	}
 
-	if(accX>=350 && pozycja_x<219)
+	if(accX>=350 && pozycja_x<203)
 	{
-		pozycja_x+=3;
+		pozycja_x+=2; //ruch w prawo
+		if(!(pozycja_x<203))
+			pozycja_x=203;
+
 	}
-	if(accY>=350 && pozycja_y<260)
+	if(accY>=350 && pozycja_y>0)
 	{
-		pozycja_y-=3;
+		pozycja_y-=2; //ruch w górę
+		if(!(pozycja_y>0))
+			pozycja_y=0;
 	}
-	if(accX<=-350 && pozycja_x>18)
+	if(accX<=-350 && pozycja_x>0)
 	{
-		pozycja_x-=3;
+		pozycja_x-=2; //ruch w lewo
+		if(!(pozycja_x>0))
+			pozycja_x=0;
 	}
-	if(accY<=-350 && pozycja_y>18)
+	if(accY<=-350 && pozycja_y<243)
 	{
-		pozycja_y+=3;
+		pozycja_y+=2; //ruch w dół
+		if(!(pozycja_y<243))
+			pozycja_y=243;
 	}
 
 }
