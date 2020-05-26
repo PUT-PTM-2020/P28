@@ -16,34 +16,94 @@ int pozycja_x=0;
 int pozycja_y=0;
 int start_x=18;
 int start_y=18;
+
+
+ILI9341_DrawLine((j+1)*40-40, (i+1)*40, 40, 0, ILI9341_BLACK);
+				ILI9341_DrawLine((j+1)*40-40, (i+1)*40-1, 40, 0, ILI9341_BLACK);
+				ILI9341_DrawLine((j+1)*40-40, (i+1)*40+1, 40, 0, ILI9341_BLACK);
+
+
+
 //(0,0)->pierwszy piksel
 //X(120,0)->ostatnia pozycja w prawo->(110,0)->minus ściana(99,0)
 //-X(-119,0)->ostatnia pozycja w lewo->(-109,0)->minus ściana(-102,0)
 //Y(0,150)->ostatnia pozycja w góre->(0,140)->minus ściana i dół(0,142)
 //-Y(0,-149)->ostatnia pozycja w góre->(0,-139)->minus ściana i dół(0,-100)
 bool left_wall(float pozycja_x, float pozycja_y){
-	if(pozycja_x >0 && pozycja_y < 40)//pierwszy wiersz
-	{
-		
+	for (int i=0;i<6;i++){
+		for(int j=0;j<5;j++){
+			if(((j+1)*40)<pozycja_x<((j+2)*40) && (i*40)<pozycja_y<(i*40)){
+				if(walls[i][j][0]=='1'){
+					return false;
+				}
+				else{
+					return true;
+				}
+			}
+		}
 	}
-	if(40 < pozycja_x < 200  && 40 < pozycja_y < 240)//środek
-	{
-			
+}
+bool right_wall(float pozycja_x, float pozycja_y){
+	for (int i=0;i<6;i++){
+		for(int j=0;j<5;j++){
+			if((j*40)<pozycja_x<((j+1)*40) && (i*40)<pozycja_y<((i+1)*40)){
+				if(walls[i][j][0]=='1'){
+					return false;
+				}
+				else{
+					return true;
+				}
+			}
+		}
 	}
-	if(pozycja_x > 0 && 240 < pozycja_y < 280)//ostatni wiersz
-	{
-			
+}
+bool bottom_wall(float pozycja_x, float pozycja_y){
+	for (int i=0;i<6;i++){
+		for(int j=0;j<5;j++){
+			if((j*40)<pozycja_x<((j+1)*40) && (i*40)<pozycja_y<((i+1)*40)){
+				if(j<4){
+					if(walls[i][j][3]=='1'){
+						return false;
+					}
+					else{
+						return true;
+					}
+				}
+				else{
+					if(walls[i][j][1]=='1'){
+						return false;
+					}
+						else{
+						return true;
+					}
+				}
+			}
+		}
 	}
-	if(pozycja_x < 40  && 40 < pozycja_y < 240)//pierwsza kolumna
-	{
-				
+}
+bool top_wall(float pozycja_x, float pozycja_y){
+	for (int i=0;i<6;i++){
+		for(int j=0;j<5;j++){
+			if((j*40)<pozycja_x<((j+1)*40) && ((i+1)*40)<pozycja_y<((i+2)*40)){
+				if(j<4){
+					if(walls[i][j][3]=='1'){
+						return false;
+					}
+					else{
+						return true;
+					}
+				}
+				else{
+					if(walls[i][j][1]=='1'){
+						return false;
+					}
+					else{
+						return true;
+					}
+				}
+			}
+		}
 	}
-	if(pozycja_x > 200  && 40 < pozycja_y < 240)//ostatnia kolumna
-	{
-					
-	}
-	
-	return true;
 }
 void acc_ball(float pozycja_x, float pozycja_y){
 
