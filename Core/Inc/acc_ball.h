@@ -10,7 +10,6 @@
 
 #include "ili9341.h"
 #include "lis3dsh.h"
-#include "maze.h"
 
 int pozycja_x=0;
 int pozycja_y=0;
@@ -105,7 +104,7 @@ bool top_wall(float pozycja_x, float pozycja_y){
 		}
 	}
 }
-void acc_ball(float pozycja_x, float pozycja_y){
+void acc_ball(float accX, float accY){
 
 	if(accX>=30 && pozycja_x<203)
 	{
