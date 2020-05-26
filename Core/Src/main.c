@@ -28,6 +28,7 @@
 #include "ili9341.h"
 #include <stdlib.h>
 #include "game.h"
+#include "ff.h"
 
 /* USER CODE END Includes */
 
@@ -38,6 +39,15 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+
+#define FA_READ 0x01
+#define FA_WRITE 0x02
+#define FA_OPEN_EXISTING 0x00
+#define FA_CREATE_NEW 0x04
+#define FA_CREATE_ALWAYS 0x08
+#define FA_OPEN_ALWAYS 0x10
+#define FA_OPEN_APPEND 0x30
+
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -47,6 +57,7 @@
 
 /* Private variables ---------------------------------------------------------*/
 SPI_HandleTypeDef hspi1;
+SPI_HandleTypeDef hspi2;
 SPI_HandleTypeDef hspi3;
 
 TIM_HandleTypeDef htim3;
@@ -54,6 +65,13 @@ TIM_HandleTypeDef htim4;
 TIM_HandleTypeDef htim5;
 
 /* USER CODE BEGIN PV */
+
+char buffer[256]; //bufor odczytu i zapisu
+static FATFS FatFs; //uchwyt do urządzenia FatFs (dysku, karty SD...)
+FRESULT fresult; //do przechowywania wyniku operacji na bibliotece FatFs
+FIL file; //uchwyt do otwartego pliku
+WORD bytes_written; //liczba zapisanych byte
+WORD bytes_read; //liczba odczytanych byte
 
 /* USER CODE END PV */
 
@@ -64,6 +82,7 @@ static void MX_SPI1_Init(void);
 static void MX_SPI3_Init(void);
 static void MX_TIM4_Init(void);
 static void MX_TIM5_Init(void);
+static void MX_SPI2_Init(void);
 static void MX_TIM3_Init(void);
 /* USER CODE BEGIN PFP */
 
@@ -143,6 +162,7 @@ int main(void)
   MX_SPI3_Init();
   MX_TIM4_Init();
   MX_TIM5_Init();
+  MX_SPI2_Init();
   MX_TIM3_Init();
   /* USER CODE BEGIN 2 */
 
@@ -156,6 +176,12 @@ int main(void)
   HAL_TIM_Base_Start_IT(&htim4);
 
   HAL_TIM_Base_Start_IT(&htim3);
+
+  fresult = f_mount(&FatFs, "", 0);
+  fresult = f_open(&file, "write.txt", FA_OPEN_ALWAYS | FA_WRITE);
+  int len = sprintf( buffer, "Hello PTM!\r\n");
+  fresult = f_write(&file, buffer, len, &bytes_written);
+  fresult = f_close (&file);
 
   /* USER CODE END 2 */
 
@@ -248,6 +274,44 @@ static void MX_SPI1_Init(void)
   /* USER CODE BEGIN SPI1_Init 2 */
 
   /* USER CODE END SPI1_Init 2 */
+
+}
+
+/**
+  * @brief SPI2 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_SPI2_Init(void)
+{
+
+  /* USER CODE BEGIN SPI2_Init 0 */
+
+  /* USER CODE END SPI2_Init 0 */
+
+  /* USER CODE BEGIN SPI2_Init 1 */
+
+  /* USER CODE END SPI2_Init 1 */
+  /* SPI2 parameter configuration*/
+  hspi2.Instance = SPI2;
+  hspi2.Init.Mode = SPI_MODE_MASTER;
+  hspi2.Init.Direction = SPI_DIRECTION_2LINES;
+  hspi2.Init.DataSize = SPI_DATASIZE_8BIT;
+  hspi2.Init.CLKPolarity = SPI_POLARITY_LOW;
+  hspi2.Init.CLKPhase = SPI_PHASE_1EDGE;
+  hspi2.Init.NSS = SPI_NSS_SOFT;
+  hspi2.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_16;
+  hspi2.Init.FirstBit = SPI_FIRSTBIT_MSB;
+  hspi2.Init.TIMode = SPI_TIMODE_DISABLE;
+  hspi2.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
+  hspi2.Init.CRCPolynomial = 10;
+  if (HAL_SPI_Init(&hspi2) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN SPI2_Init 2 */
+
+  /* USER CODE END SPI2_Init 2 */
 
 }
 
@@ -437,8 +501,8 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOE_CLK_ENABLE();
   __HAL_RCC_GPIOH_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
-  __HAL_RCC_GPIOD_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
+  __HAL_RCC_GPIOD_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOE, GPIO_PIN_3|LCD_CS_Pin|LCD_RST_Pin|LCD_DC_Pin, GPIO_PIN_RESET);
@@ -453,8 +517,8 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PA1 PA2 PA3 PA4 */
-  GPIO_InitStruct.Pin = GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3|GPIO_PIN_4;
+  /*Configure GPIO pins : PA2 PA3 PA4 */
+  GPIO_InitStruct.Pin = GPIO_PIN_2|GPIO_PIN_3|GPIO_PIN_4;
   GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
@@ -467,9 +531,6 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
 
   /* EXTI interrupt init*/
-  HAL_NVIC_SetPriority(EXTI1_IRQn, 0, 0);
-  HAL_NVIC_EnableIRQ(EXTI1_IRQn);
-
   HAL_NVIC_SetPriority(EXTI2_IRQn, 0, 0);
   HAL_NVIC_EnableIRQ(EXTI2_IRQn);
 
