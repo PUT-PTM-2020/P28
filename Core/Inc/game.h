@@ -59,7 +59,7 @@ void buttons(uint16_t GPIO_Pin){
 					break;
 				case 2:
 					place_in_game=2;
-					init_maze();
+					//init_maze();
 					ILI9341_FillScreen(background);
 					display_maze();
 					time=0;
