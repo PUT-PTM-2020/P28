@@ -29,7 +29,7 @@ void acc_ball(float accX, float accY){
 	}
 	if(accY>=30 && pozycja_y<260)
 	{
-		pozycja_y+=1;
+		pozycja_y-=1;
 	}
 	if(accX<=-30 && pozycja_x>18)
 	{
@@ -37,7 +37,7 @@ void acc_ball(float accX, float accY){
 	}
 	if(accY<=-30 && pozycja_y>18)
 	{
-		pozycja_y-=1;
+		pozycja_y+=1;
 	}
 
 	if(accX>=350 && pozycja_x<219)
@@ -46,7 +46,7 @@ void acc_ball(float accX, float accY){
 	}
 	if(accY>=350 && pozycja_y<260)
 	{
-		pozycja_y+=3;
+		pozycja_y-=3;
 	}
 	if(accX<=-350 && pozycja_x>18)
 	{
@@ -54,7 +54,7 @@ void acc_ball(float accX, float accY){
 	}
 	if(accY<=-350 && pozycja_y>18)
 	{
-		pozycja_y-=3;
+		pozycja_y+=3;
 	}
 
 }
@@ -63,7 +63,7 @@ void display_ball(float accX, float accY){
 
 	acc_ball(accX,accY);
 
-	ILI9341_DrawFilledCircle(start_x + pozycja_x, start_Y - pozycja_y, 10, 10);
+	ILI9341_DrawFilledCircle(start_x + pozycja_x, start_y + pozycja_y, 10, 10);
 
 }
 
