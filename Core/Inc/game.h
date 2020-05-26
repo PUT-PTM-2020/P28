@@ -30,6 +30,9 @@ void buttons(uint16_t GPIO_Pin){
 				}
 				break;
 			}
+			case 3:
+				choice=1;
+				break;
 			break;
 
 		case 4: //przycisk 2 --DOWN
@@ -42,6 +45,9 @@ void buttons(uint16_t GPIO_Pin){
 					choice=2;
 					break;
 				}
+				break;
+			case 3:
+				choice=2;
 				break;
 			}
 
@@ -63,8 +69,24 @@ void buttons(uint16_t GPIO_Pin){
 					ILI9341_FillScreen(background);
 					display_maze();
 					time=0;
+					HAL_TIM_Base_Start_IT(&htim3);
 					return;
 					break;
+				}
+				break;
+			case 3:
+				if(choice==1){
+					place_in_game=2;
+					ILI9341_FillRectangle(0, 125, 240, 90, background);
+					display_maze();
+					HAL_TIM_Base_Start_IT(&htim3);
+				}
+				else if(choice==2){
+					place_in_game=1;
+					place_in_menu=1;
+					reset_ball();
+					choice=1;
+					ILI9341_FillScreen(background);
 				}
 				break;
 			}
@@ -85,10 +107,10 @@ void buttons(uint16_t GPIO_Pin){
 			case 2:
 				//zapauzowanie gry
 				HAL_TIM_Base_Stop_IT(&htim3);
+				place_in_game=3;
+				ILI9341_FillRectangle(0, 125, 240, 90, background);
+				choice=1;
 				return;
-				break;
-			case 3:
-
 				break;
 			}
 			break;
@@ -127,6 +149,21 @@ void display_game(){
 	ILI9341_WriteString(1, 292, cstr, Font_16x26, textcolor, background);
 }
 
+void display_pause(){
+	ILI9341_WriteString(92, 126, "Pauza", Font_11x18, textcolor, background);
+	switch(choice)
+	{
+	case 1:
+		ILI9341_WriteString(70, 170, "Kontynuuj", Font_11x18, selectcolor, background);
+		ILI9341_WriteString(48, 190, "Wyjdz do menu", Font_11x18, textcolor, background);
+		break;
+	case 2:
+		ILI9341_WriteString(70, 170, "Kontynuuj", Font_11x18, textcolor, background);
+		ILI9341_WriteString(48, 190, "Wyjdz do menu", Font_11x18, selectcolor, background);
+		break;
+	}
+}
+
 void game(){
 	switch(place_in_game){
 		case 1:
@@ -135,5 +172,7 @@ void game(){
 		case 2:
 			display_game();
 			break;
+		case 3:
+			display_pause();
 		}
 }

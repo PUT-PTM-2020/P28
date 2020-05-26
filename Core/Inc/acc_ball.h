@@ -76,4 +76,9 @@ void display_ball(float accX, float accY){
 
 }
 
+void reset_ball(){
+	pozycja_x=0;
+	pozycja_y=0;
+}
+
 #endif /* INC_ACC_BALL_H_ */
