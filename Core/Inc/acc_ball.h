@@ -24,7 +24,7 @@ int start_y=18;
 //Y(0,150)->ostatnia pozycja w góre->(0,140)->minus ściana i dół(0,142)
 //-Y(0,-149)->ostatnia pozycja w góre->(0,-139)->minus ściana i dół(0,-100)
 int left_wall(float pozycja_x, float pozycja_y){
-	int od=100;
+	int od=(-100);
 	for (int i=0;i<7;i++){
 		for(int j=0;j<6;j++){
 			if(((j+1)*40)<pozycja_x<((j+2)*40) && (i*40)<pozycja_y<(i*40)){
@@ -40,7 +40,7 @@ int left_wall(float pozycja_x, float pozycja_y){
 	}
 }
 int right_wall(float pozycja_x, float pozycja_y){
-	int od=100;
+	int od=(-100);
 	for (int i=0;i<7;i++){
 		for(int j=0;j<6;j++){
 			if((j*40)<pozycja_x<((j+1)*40) && (i*40)<pozycja_y<((i+1)*40)){
@@ -56,7 +56,7 @@ int right_wall(float pozycja_x, float pozycja_y){
 	}
 }
 int bottom_wall(float pozycja_x, float pozycja_y){
-	int od=100;
+	int od=(-100);
 	for (int i=0;i<7;i++){
 		for(int j=0;j<6;j++){
 			if((j*40)<pozycja_x<((j+1)*40) && (i*40)<pozycja_y<((i+1)*40)){
@@ -83,7 +83,7 @@ int bottom_wall(float pozycja_x, float pozycja_y){
 	}
 }
 int top_wall(float pozycja_x, float pozycja_y){
-	int od=100;
+	int od=(-100);
 	for (int i=0;i<7;i++){
 		for(int j=0;j<6;j++){
 			if((j*40)<pozycja_x<((j+1)*40) && ((i+1)*40)<pozycja_y<((i+2)*40)){
