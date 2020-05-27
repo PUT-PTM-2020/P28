@@ -24,10 +24,10 @@ int start_y=18;
 //Y(0,150)->ostatnia pozycja w góre->(0,140)->minus ściana i dół(0,142)
 //-Y(0,-149)->ostatnia pozycja w góre->(0,-139)->minus ściana i dół(0,-100)
 int left_wall(float pozycja_x, float pozycja_y,char*** walls){
-	int od=(-100);
+	int od=100;
 	for (int i=0;i<7;i++){
 		for(int j=0;j<6;j++){
-			if(((j+1)*40)<pozycja_x && pozycja_x<((j+2)*40) && (i*40)<pozycja_y<(i*40)){
+			if(((j+1)*40)<pozycja_x && pozycja_x<((j+2)*40) && (i*40)<pozycja_y && pozycja_y<(i*40)){
 				if(walls[i][j][0]=='1'){
 					od = pozycja_x-((j+2)*40);
 					return od;
@@ -40,10 +40,10 @@ int left_wall(float pozycja_x, float pozycja_y,char*** walls){
 	}
 }
 int right_wall(float pozycja_x, float pozycja_y,char*** walls){
-	int od=(-100);
+	int od=100;
 	for (int i=0;i<7;i++){
 		for(int j=0;j<6;j++){
-			if((j*40)<pozycja_x<((j+1)*40) && (i*40)<pozycja_y<((i+1)*40)){
+			if((j*40)<pozycja_x && pozycja_x<((j+1)*40) && (i*40)<pozycja_y && pozycja_y<((i+1)*40)){
 				if(walls[i][j][0]=='1'){
 					od = pozycja_x-((j+1)*40);
 					return od;
@@ -56,10 +56,10 @@ int right_wall(float pozycja_x, float pozycja_y,char*** walls){
 	}
 }
 int bottom_wall(float pozycja_x, float pozycja_y,char*** walls){
-	int od=(-100);
+	int od=100;
 	for (int i=0;i<7;i++){
 		for(int j=0;j<6;j++){
-			if((j*40)<pozycja_x<((j+1)*40) && (i*40)<pozycja_y<((i+1)*40)){
+			if((j*40)<pozycja_x && pozycja_x<((j+1)*40) && (i*40)<pozycja_y && pozycja_y<((i+1)*40)){
 				if(j<5){
 					if(walls[i][j][3]=='1'){
 						od = pozycja_y-((i+1)*40);
@@ -83,10 +83,10 @@ int bottom_wall(float pozycja_x, float pozycja_y,char*** walls){
 	}
 }
 int top_wall(float pozycja_x, float pozycja_y,char*** walls){
-	int od=(-100);
+	int od=100;
 	for (int i=0;i<7;i++){
 		for(int j=0;j<6;j++){
-			if((j*40)<pozycja_x<((j+1)*40) && ((i+1)*40)<pozycja_y<((i+2)*40)){
+			if((j*40)<pozycja_x && pozycja_x<((j+1)*40) && ((i+1)*40)<pozycja_y && pozycja_y<((i+2)*40)){
 				if(j<5){
 					if(walls[i][j][3]=='1'){
 						od = pozycja_y-((i+1)*40);
@@ -111,19 +111,19 @@ int top_wall(float pozycja_x, float pozycja_y,char*** walls){
 }
 void acc_ball(float accX, float accY, char*** walls){
 
-	if(accX>=30 && pozycja_x<203 && right_wall(pozycja_x, pozycja_y,walls)>(18))
+	if(accX>=30 && pozycja_x<203 && right_wall(pozycja_x, pozycja_y,walls)>18)
 	{
 		pozycja_x+=1;//ruch w prawo
 	}
-	if(accY>=30 && pozycja_y>0 && bottom_wall(pozycja_x, pozycja_y,walls)<(-18))
+	if(accY>=30 && pozycja_y>0 && bottom_wall(pozycja_x, pozycja_y,walls)<18)
 	{
 		pozycja_y-=1; //ruch piłki w górę
 	}
-	if(accX<=-30 && pozycja_x>0 && left_wall(pozycja_x,pozycja_y,walls)>(18))
+	if(accX<=-30 && pozycja_x>0 && left_wall(pozycja_x,pozycja_y,walls)>18)
 	{
 		pozycja_x-=1; //ruch w lewo
 	}
-	if(accY<=-30 && pozycja_y<243 && top_wall(pozycja_x, pozycja_y,walls)<(-18))
+	if(accY<=-30 && pozycja_y<243 && top_wall(pozycja_x, pozycja_y,walls)<18)
 	{
 		pozycja_y+=1; //ruch piłki w dół (może uderzycz w górną ściane)
 	}
