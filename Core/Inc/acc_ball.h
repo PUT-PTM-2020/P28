@@ -18,63 +18,64 @@ int start_x=18;
 int start_y=18;
 
 
-ILI9341_DrawLine((j+1)*40-40, (i+1)*40, 40, 0, ILI9341_BLACK);
-				ILI9341_DrawLine((j+1)*40-40, (i+1)*40-1, 40, 0, ILI9341_BLACK);
-				ILI9341_DrawLine((j+1)*40-40, (i+1)*40+1, 40, 0, ILI9341_BLACK);
-
-
-
 //(0,0)->pierwszy piksel
 //X(120,0)->ostatnia pozycja w prawo->(110,0)->minus ściana(99,0)
 //-X(-119,0)->ostatnia pozycja w lewo->(-109,0)->minus ściana(-102,0)
 //Y(0,150)->ostatnia pozycja w góre->(0,140)->minus ściana i dół(0,142)
 //-Y(0,-149)->ostatnia pozycja w góre->(0,-139)->minus ściana i dół(0,-100)
-bool left_wall(float pozycja_x, float pozycja_y){
-	for (int i=0;i<6;i++){
-		for(int j=0;j<5;j++){
+int left_wall(float pozycja_x, float pozycja_y){
+	int od=100;
+	for (int i=0;i<7;i++){
+		for(int j=0;j<6;j++){
 			if(((j+1)*40)<pozycja_x<((j+2)*40) && (i*40)<pozycja_y<(i*40)){
 				if(walls[i][j][0]=='1'){
-					return false;
+					od = pozycja_x-((j+2)*40);
+					return od;
 				}
 				else{
-					return true;
+					return od;
 				}
 			}
 		}
 	}
 }
-bool right_wall(float pozycja_x, float pozycja_y){
-	for (int i=0;i<6;i++){
-		for(int j=0;j<5;j++){
+int right_wall(float pozycja_x, float pozycja_y){
+	int od=100;
+	for (int i=0;i<7;i++){
+		for(int j=0;j<6;j++){
 			if((j*40)<pozycja_x<((j+1)*40) && (i*40)<pozycja_y<((i+1)*40)){
 				if(walls[i][j][0]=='1'){
-					return false;
+					od = pozycja_x-((j+1)*40);
+					return od;
 				}
 				else{
-					return true;
+					return od;
 				}
 			}
 		}
 	}
 }
-bool bottom_wall(float pozycja_x, float pozycja_y){
-	for (int i=0;i<6;i++){
-		for(int j=0;j<5;j++){
+int bottom_wall(float pozycja_x, float pozycja_y){
+	int od=100;
+	for (int i=0;i<7;i++){
+		for(int j=0;j<6;j++){
 			if((j*40)<pozycja_x<((j+1)*40) && (i*40)<pozycja_y<((i+1)*40)){
-				if(j<4){
+				if(j<5){
 					if(walls[i][j][3]=='1'){
-						return false;
+						od = pozycja_y-((i+1)*40);
+						return od;
 					}
 					else{
-						return true;
+						return od;
 					}
 				}
 				else{
 					if(walls[i][j][1]=='1'){
-						return false;
+						od = pozycja_y-((i+1)*40);
+						return od;
 					}
 						else{
-						return true;
+						return od;
 					}
 				}
 			}
@@ -82,23 +83,24 @@ bool bottom_wall(float pozycja_x, float pozycja_y){
 	}
 }
 bool top_wall(float pozycja_x, float pozycja_y){
-	for (int i=0;i<6;i++){
-		for(int j=0;j<5;j++){
+	for (int i=0;i<7;i++){
+		for(int j=0;j<6;j++){
 			if((j*40)<pozycja_x<((j+1)*40) && ((i+1)*40)<pozycja_y<((i+2)*40)){
-				if(j<4){
+				if(j<5){
 					if(walls[i][j][3]=='1'){
-						return false;
+						od = pozycja_y-((i+1)*40);
+						return od;
 					}
 					else{
-						return true;
+						return od;
 					}
 				}
 				else{
-					if(walls[i][j][1]=='1'){
-						return false;
+					od = pozycja_y-((i+1)*40);
+					return od;
 					}
 					else{
-						return true;
+						return od;
 					}
 				}
 			}
