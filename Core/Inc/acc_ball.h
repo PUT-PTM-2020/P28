@@ -23,11 +23,11 @@ int start_y=18;
 //-X(-119,0)->ostatnia pozycja w lewo->(-109,0)->minus ściana(-102,0)
 //Y(0,150)->ostatnia pozycja w góre->(0,140)->minus ściana i dół(0,142)
 //-Y(0,-149)->ostatnia pozycja w góre->(0,-139)->minus ściana i dół(0,-100)
-int left_wall(float pozycja_x, float pozycja_y){
+int left_wall(float pozycja_x, float pozycja_y,char*** walls){
 	int od=(-100);
 	for (int i=0;i<7;i++){
 		for(int j=0;j<6;j++){
-			if(((j+1)*40)<pozycja_x<((j+2)*40) && (i*40)<pozycja_y<(i*40)){
+			if(((j+1)*40)<pozycja_x && pozycja_x<((j+2)*40) && (i*40)<pozycja_y<(i*40)){
 				if(walls[i][j][0]=='1'){
 					od = pozycja_x-((j+2)*40);
 					return od;
@@ -39,7 +39,7 @@ int left_wall(float pozycja_x, float pozycja_y){
 		}
 	}
 }
-int right_wall(float pozycja_x, float pozycja_y){
+int right_wall(float pozycja_x, float pozycja_y,char*** walls){
 	int od=(-100);
 	for (int i=0;i<7;i++){
 		for(int j=0;j<6;j++){
@@ -55,7 +55,7 @@ int right_wall(float pozycja_x, float pozycja_y){
 		}
 	}
 }
-int bottom_wall(float pozycja_x, float pozycja_y){
+int bottom_wall(float pozycja_x, float pozycja_y,char*** walls){
 	int od=(-100);
 	for (int i=0;i<7;i++){
 		for(int j=0;j<6;j++){
@@ -82,7 +82,7 @@ int bottom_wall(float pozycja_x, float pozycja_y){
 		}
 	}
 }
-int top_wall(float pozycja_x, float pozycja_y){
+int top_wall(float pozycja_x, float pozycja_y,char*** walls){
 	int od=(-100);
 	for (int i=0;i<7;i++){
 		for(int j=0;j<6;j++){
@@ -109,21 +109,21 @@ int top_wall(float pozycja_x, float pozycja_y){
 		}
 	}
 }
-void acc_ball(float accX, float accY){
+void acc_ball(float accX, float accY, char*** walls){
 
-	if(accX>=30 && pozycja_x<203 && right_wall(pozycja_x, pozycja_y)<(-18))
+	if(accX>=30 && pozycja_x<203 && right_wall(pozycja_x, pozycja_y,walls)>(18))
 	{
 		pozycja_x+=1;//ruch w prawo
 	}
-	if(accY>=30 && pozycja_y>0 && bottom_wall(pozycja_x, pozycja_y)<(-18))
+	if(accY>=30 && pozycja_y>0 && bottom_wall(pozycja_x, pozycja_y,walls)<(-18))
 	{
 		pozycja_y-=1; //ruch piłki w górę
 	}
-	if(accX<=-30 && pozycja_x>0 && left_wall(pozycja_x,pozycja_y)<(-18))
+	if(accX<=-30 && pozycja_x>0 && left_wall(pozycja_x,pozycja_y,walls)>(18))
 	{
 		pozycja_x-=1; //ruch w lewo
 	}
-	if(accY<=-30 && pozycja_y<243 && top_wall(pozycja_x, pozycja_y)<(-18))
+	if(accY<=-30 && pozycja_y<243 && top_wall(pozycja_x, pozycja_y,walls)<(-18))
 	{
 		pozycja_y+=1; //ruch piłki w dół (może uderzycz w górną ściane)
 	}
@@ -156,9 +156,9 @@ void acc_ball(float accX, float accY){
 
 }
 
-void display_ball(float accX, float accY){
+void display_ball(float accX, float accY, char*** walls){
 
-	acc_ball(accX,accY);
+	acc_ball(accX,accY,walls);
 
 	ILI9341_DrawFilledCircle(start_x + pozycja_x, start_y + pozycja_y, 10, 10);
 

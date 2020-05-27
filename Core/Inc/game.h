@@ -144,7 +144,7 @@ void display_menu(){
 }
 
 void display_game(){
-	display_ball(accX, accY);
+	display_ball(accX, accY,walls);
 	itoa(time, cstr, 10);
 	ILI9341_WriteString(1, 292, cstr, Font_16x26, textcolor, background);
 }

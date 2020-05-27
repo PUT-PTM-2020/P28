@@ -177,12 +177,6 @@ int main(void)
 
   HAL_TIM_Base_Start_IT(&htim3);
 
-  fresult = f_mount(&FatFs, "", 0);
-  fresult = f_open(&file, "write.txt", FA_OPEN_ALWAYS | FA_WRITE);
-  int len = sprintf( buffer, "Hello PTM!\r\n");
-  fresult = f_write(&file, buffer, len, &bytes_written);
-  fresult = f_close (&file);
-
   /* USER CODE END 2 */
 
   /* Infinite loop */
