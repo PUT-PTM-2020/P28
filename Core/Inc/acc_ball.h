@@ -11,6 +11,7 @@
 #include "ili9341.h"
 #include "lis3dsh.h"
 
+
 int pozycja_x=0;
 int pozycja_y=0;
 int start_x=18;
