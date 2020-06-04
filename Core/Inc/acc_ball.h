@@ -217,12 +217,12 @@ void reset_ball(){
 
 void init_ball(int difficulty){
 	if(difficulty==1){
-		pozycja_x=15;
-		pozycja_y=15;
+		pozycja_x=17;
+		pozycja_y=17;
 	}
 	if(difficulty==2){
-		pozycja_x=10;
-		pozycja_y=10;
+		pozycja_x=11;
+		pozycja_y=11;
 	}
 }
 
