@@ -10,8 +10,35 @@
 
 #include "ili9341.h"
 #include "lis3dsh.h"
-#include "walls.h"
+#include <stdlib.h>
 
+int*** walls;
+//char walls[6][5][4] = {"0110","1001","0010","1000","0010","1000","0110","1101","0111","1001","0100","1101","0001","1010","0100","0101","0101","0101","1101","0001","0100","0101","0101","0111","0011","0100","0101","0011","1010","1000"};
+
+void init_walls(int difficulty){
+	if(difficulty==1){
+		walls = (int***) malloc(6*sizeof(***walls));
+		for (int i=0;i<6;i++){
+			walls[i] = (int**) malloc(5*sizeof(**walls));
+		}
+		for (int i=0;i<6;i++){
+			for (int j=0;j<5;j++){
+				walls[i][j] = (int*) malloc(4*sizeof(*walls));
+			}
+		}
+	}
+	else if (difficulty==2){
+		walls = (int***) malloc(13*sizeof(***walls));
+		for (int i=0;i<13;i++){
+			walls[i] = (int**) malloc(11*sizeof(**walls));
+		}
+		for (int i=0;i<13;i++){
+			for (int j=0;j<11;j++){
+				walls[i][j] = (int*) malloc(4*sizeof(*walls));
+			}
+		}
+	}
+}
 
 int pozycja_x;
 int pozycja_y;
@@ -40,7 +67,6 @@ int left_wall(int pozycja_x, int pozycja_y){//,char*** walls){
 	}
 }
 int right_wall(int pozycja_x, int pozycja_y){//,char*** walls){
-	//char walls[6][5][4] = {"0110","1001","0010","1000","0010","1000","0110","1101","0111","1001","0100","1101","0001","1010","0100","0101","0101","0101","1101","0001","0100","0101","0101","0111","0011","0100","0101","0011","1010","1000"};
 
 	int od=100;
 	for (int i=0;i<7;i++){
