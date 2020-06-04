@@ -9,8 +9,10 @@ uint16_t selectcolor = ILI9341_WHITE;
 uint16_t place_in_menu=1;
 uint16_t place_in_game=1;
 uint16_t choice=1;
+uint16_t difficulty=1;
 
 int maze_number;
+int r;
 
 float accX, accY, accZ, out[4];
 int time=0;
@@ -68,8 +70,16 @@ void buttons(uint16_t GPIO_Pin){
 				case 2:
 					place_in_game=2;
 					init_maze(choice,1);
+					if(choice==1){
+						difficulty=1;
+						r=10;
+					}
+					else if(choice==2){
+						difficulty=2;
+						r=5;
+					}
 					ILI9341_FillScreen(background);
-					display_maze();
+					display_maze(difficulty);
 					time=0;
 					HAL_TIM_Base_Start_IT(&htim3);
 					return;
@@ -80,7 +90,7 @@ void buttons(uint16_t GPIO_Pin){
 				if(choice==1){
 					place_in_game=2;
 					ILI9341_FillRectangle(0, 125, 240, 90, background);
-					display_maze();
+					display_maze(difficulty);
 					HAL_TIM_Base_Start_IT(&htim3);
 				}
 				else if(choice==2){
@@ -148,7 +158,7 @@ void display_menu(){
 }
 
 void display_game(){
-	display_ball(accX, accY, walls);
+	display_ball(accX, accY, walls,r);
 	itoa(time, cstr, 10);
 	ILI9341_WriteString(1, 292, cstr, Font_16x26, textcolor, background);
 }

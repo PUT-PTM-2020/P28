@@ -162,11 +162,11 @@ void acc_ball(float accX, float accY, char*** walls){
 
 }
 
-void display_ball(float accX, float accY, char*** walls){
+void display_ball(float accX, float accY, char*** walls,int r){
 
 	acc_ball(accX,accY,walls);
 
-	ILI9341_DrawFilledCircle(pozycja_x, pozycja_y, 10, 10);
+	ILI9341_DrawFilledCircle(pozycja_x, pozycja_y, r, 10);
 
 }
 
