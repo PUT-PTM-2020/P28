@@ -72,12 +72,30 @@ int right_wall(int pozycja_x, int pozycja_y){//,char*** walls){
 	for (int i=0;i<7;i++){
 		for(int j=0;j<5;j++){
 			if((j*40)<=pozycja_x && pozycja_x<=((j+1)*40) && (i*40)<=pozycja_y && pozycja_y<=((i+1)*40)){
-				if(walls[i][j][0]=='1'){
-					od = pozycja_x-((j+1)*40);
-					return od;
+				if(pozycja_y<58+40*(i-1)){
+					if(walls[i-1][j][0]=='1' || walls[i-1][j][1]=='1' || walls[i-1][j][2]=='1')
+						return 1;
+					else
+						return od;
 				}
-				else{
-					return od;
+				if(pozycja_y>=58 && pozycja_y<=64){
+					if(walls[i][j][0]=='1'){
+						od = (pozycja_x-((j+1)*40))*(-1);
+						return od;
+					}
+					else{
+						return od;
+					}
+				}
+				if(pozycja_y>64+40*(i-1)){
+					if(pozycja_y<264){
+						if(walls[i+1][j][0]=='1' || walls[i+1][j][1]=='1' || walls[i+1][j][2]=='1')
+							return 1;
+						else
+							return od;
+					}
+					else
+						return od;
 				}
 			}
 		}
@@ -92,7 +110,7 @@ int bottom_wall(int pozycja_x, int pozycja_y){//,char*** walls){
 			if((j*40)<=pozycja_x && pozycja_x<=((j+1)*40) && (i*40)<=pozycja_y && pozycja_y<=((i+1)*40)){
 				if(j<5){
 					if(walls[i][j][3]=='1'){
-						od = pozycja_y-((i+1)*40);
+						od = (pozycja_y-((i+1)*40))*(-1);
 						return od;
 					}
 					else{
@@ -157,7 +175,7 @@ void acc_ball(float accX, float accY, char*** walls){
 	}
 	if(accY<=-30 && pozycja_y<243 && bottom_wall(pozycja_x, pozycja_y)>17)
 	{
-		pozycja_y+=1; //ruch piłki w dół (może uderzycz w górną ściane)
+		pozycja_y+=1; //ruch piłki w dół 
 	}
 
 	if(accX>=350 && pozycja_x<203 && right_wall(pozycja_x, pozycja_y)>16)
