@@ -72,7 +72,7 @@ void buttons(uint16_t GPIO_Pin){
 					init_maze(choice,1);
 					if(choice==1){
 						difficulty=1;
-						r=10;
+						r=9;
 					}
 					else if(choice==2){
 						difficulty=2;
