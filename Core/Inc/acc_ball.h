@@ -20,7 +20,9 @@ int pozycja_y;
 //-X(-119,0)->ostatnia pozycja w lewo->(-109,0)->minus ściana(-102,0)
 //Y(0,150)->ostatnia pozycja w góre->(0,140)->minus ściana i dół(0,142)
 //-Y(0,-149)->ostatnia pozycja w góre->(0,-139)->minus ściana i dół(0,-100)
-bool left_wall(int pozycja_x, int pozycja_y,char*** walls){
+bool left_wall(int pozycja_x, int pozycja_y){//,char*** walls){
+	char walls[6][5][4] = {"0110","1001","0010","1000","0010","1000","0110","1101","0111","1001","0100","1101","0001","1010","0100","0101","0101","0101","1101","0001","0100","0101","0101","0111","0011","0100","0101","0011","1010","1000"};
+
 	int od=100;
 	for (int i=0;i<7;i++){
 		for(int j=0;j<5;j++){
@@ -28,7 +30,7 @@ bool left_wall(int pozycja_x, int pozycja_y,char*** walls){
 				if(walls[i][j][0]=='1'){
 					//od = pozycja_x-((j+2)*40);
 					od=1;
-					return true;//false;//od;
+					return false;//od;
 				}
 				else{
 					return true;//od;
@@ -37,7 +39,9 @@ bool left_wall(int pozycja_x, int pozycja_y,char*** walls){
 		}
 	}
 }
-bool right_wall(int pozycja_x, int pozycja_y,char*** walls){
+bool right_wall(int pozycja_x, int pozycja_y){//,char*** walls){
+	char walls[6][5][4] = {"0110","1001","0010","1000","0010","1000","0110","1101","0111","1001","0100","1101","0001","1010","0100","0101","0101","0101","1101","0001","0100","0101","0101","0111","0011","0100","0101","0011","1010","1000"};
+
 	int od=100;
 	for (int i=0;i<7;i++){
 		for(int j=0;j<5;j++){
@@ -45,7 +49,7 @@ bool right_wall(int pozycja_x, int pozycja_y,char*** walls){
 				if(walls[i][j][0]=='1'){
 					//od = pozycja_x-((j+1)*40);
 					od=1;
-					return true;//false;//od;
+					return false;//od;
 				}
 				else{
 					return true;//od;
@@ -54,7 +58,9 @@ bool right_wall(int pozycja_x, int pozycja_y,char*** walls){
 		}
 	}
 }
-bool bottom_wall(int pozycja_x, int pozycja_y,char*** walls){
+bool bottom_wall(int pozycja_x, int pozycja_y){//,char*** walls){
+	char walls[6][5][4] = {"0110","1001","0010","1000","0010","1000","0110","1101","0111","1001","0100","1101","0001","1010","0100","0101","0101","0101","1101","0001","0100","0101","0101","0111","0011","0100","0101","0011","1010","1000"};
+
 	int od=100;
 	for (int i=0;i<6;i++){
 		for(int j=0;j<6;j++){
@@ -63,7 +69,7 @@ bool bottom_wall(int pozycja_x, int pozycja_y,char*** walls){
 					if(walls[i][j][3]=='1'){
 						//od = pozycja_y-((i+1)*40);
 						od=1;
-						return true;//false;//od;
+						return false;//od;
 					}
 					else{
 						return true;//od;
@@ -73,7 +79,7 @@ bool bottom_wall(int pozycja_x, int pozycja_y,char*** walls){
 					if(walls[i][j][1]=='1'){
 						//od = pozycja_y-((i+1)*40);
 						od=1;
-						return true;//false;//od;
+						return false;//od;
 					}
 					else{
 						return true;//od;
@@ -83,7 +89,9 @@ bool bottom_wall(int pozycja_x, int pozycja_y,char*** walls){
 		}
 	}
 }
-bool top_wall(int pozycja_x, int pozycja_y,char*** walls){
+bool top_wall(int pozycja_x, int pozycja_y){//,char*** walls){
+	char walls[6][5][4] = {"0110","1001","0010","1000","0010","1000","0110","1101","0111","1001","0100","1101","0001","1010","0100","0101","0101","0101","1101","0001","0100","0101","0101","0111","0011","0100","0101","0011","1010","1000"};
+
 	int od=100;
 	for (int i=0;i<6;i++){
 		for(int j=0;j<6;j++){
@@ -92,7 +100,7 @@ bool top_wall(int pozycja_x, int pozycja_y,char*** walls){
 					if(walls[i][j][3]=='1'){
 						//od = pozycja_y-((i+1)*40);
 						od=1;
-						return true;//false;//od;
+						return false;//od;
 					}
 					else{
 						return true;//od;
@@ -102,7 +110,7 @@ bool top_wall(int pozycja_x, int pozycja_y,char*** walls){
 					if(walls[i][j][1]=='1'){
 						//od = pozycja_y-((i+1)*40);
 						od=1;
-						return true;//false;//od;
+						return false;//od;
 					}
 					else{
 						return true;//od;
@@ -114,43 +122,43 @@ bool top_wall(int pozycja_x, int pozycja_y,char*** walls){
 }
 void acc_ball(float accX, float accY, char*** walls){
 
-	if(accX>=30 && pozycja_x<203 && right_wall(pozycja_x, pozycja_y, walls))//>17)
+	if(accX>=30 && pozycja_x<203 && right_wall(pozycja_x, pozycja_y)//, walls))//>17)
 	{
 		pozycja_x+=1;//ruch w prawo
 	}
-	if(accY>=30 && pozycja_y>0 && top_wall(pozycja_x, pozycja_y, walls))//>17)
+	if(accY>=30 && pozycja_y>0 && top_wall(pozycja_x, pozycja_y)//, walls))//>17)
 	{
 		pozycja_y-=1; //ruch piłki w górę
 	}
-	if(accX<=-30 && pozycja_x>0 && left_wall(pozycja_x,pozycja_y, walls))//>17)
+	if(accX<=-30 && pozycja_x>0 && left_wall(pozycja_x,pozycja_y)//, walls))//>17)
 	{
 		pozycja_x-=1; //ruch w lewo
 	}
-	if(accY<=-30 && pozycja_y<243 && bottom_wall(pozycja_x, pozycja_y, walls))//>17)
+	if(accY<=-30 && pozycja_y<243 && bottom_wall(pozycja_x, pozycja_y)//, walls))//>17)
 	{
 		pozycja_y+=1; //ruch piłki w dół (może uderzycz w górną ściane)
 	}
 
-	if(accX>=350 && pozycja_x<203 && right_wall(pozycja_x, pozycja_y, walls))//>16)
+	if(accX>=350 && pozycja_x<203 && right_wall(pozycja_x, pozycja_y)//, walls))//>16)
 	{
 		pozycja_x+=2; //ruch w prawo
 		if(!(pozycja_x<203))
 			pozycja_x=203;
 
 	}
-	if(accY>=350 && pozycja_y>0 && top_wall(pozycja_x, pozycja_y, walls))//>16)
+	if(accY>=350 && pozycja_y>0 && top_wall(pozycja_x, pozycja_y)//, walls))//>16)
 	{
 		pozycja_y-=2; //ruch w górę
 		if(!(pozycja_y>0))
 			pozycja_y=0;
 	}
-	if(accX<=-350 && pozycja_x>0 && left_wall(pozycja_x, pozycja_y, walls))//>16)
+	if(accX<=-350 && pozycja_x>0 && left_wall(pozycja_x, pozycja_y)//, walls))//>16)
 	{
 		pozycja_x-=2; //ruch w lewo
 		if(!(pozycja_x>0))
 			pozycja_x=0;
 	}
-	if(accY<=-350 && pozycja_y<243 && bottom_wall(pozycja_x, pozycja_y, walls))//>16)
+	if(accY<=-350 && pozycja_y<243 && bottom_wall(pozycja_x, pozycja_y)//, walls))//>16)
 	{
 		pozycja_y+=2; //ruch w dół
 		if(!(pozycja_y<243))
