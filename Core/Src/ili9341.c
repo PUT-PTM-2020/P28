@@ -328,37 +328,37 @@ void ILI9341_DrawFilledCircle(uint16_t x0, uint16_t y0, uint16_t r, uint16_t col
 	for(int i=0;i<r;i++)
     {
     	ILI9341_DrawLine(x0 - i, y0 - r + i, i+1, 0, color);
-    	ILI9341_DrawLine(x0, y0 + i, r-i, 0, color);
-    	ILI9341_DrawLine(x0 - r + i+1, y0 + i, r-i, 0, color);
+    	ILI9341_DrawLine(x0, y0 + i, r-i+1, 0, color);
+    	ILI9341_DrawLine(x0 - r + i, y0 + i, r-i, 0, color);
     	ILI9341_DrawLine(x0, y0 - r + i, i+1, 0, color);
 
+    	ILI9341_DrawLine(x0-r, y0, r*2+1, 0, color);
+    	ILI9341_DrawLine(x0, y0 - r, r*2+1, 1, color);
 
-    	/*for(int j=1;j<=r/2;j++){
 
-    		for(int k=0;k<=r/2;k++){
-    			ILI9341_DrawPixel(x0-k, y0-r-j, ILI9341_MAGENTA);
-    			ILI9341_DrawPixel(x0+k, y0-r-j, ILI9341_MAGENTA);
+    	for(int j=1;j<=3;j++){
 
-    			ILI9341_DrawPixel(x0-k, y0+r+j, ILI9341_MAGENTA);
-    			ILI9341_DrawPixel(x0+k, y0+r+j, ILI9341_MAGENTA);
+    		for(int k=0;k<=2;k++){
+    			ILI9341_DrawPixel(x0-k, y0-r-j, 0x2137);
+    			ILI9341_DrawPixel(x0+k, y0-r-j, 0x2137);
 
-    			ILI9341_DrawPixel(x0-r-j, y0-k, ILI9341_MAGENTA);
-    			ILI9341_DrawPixel(x0-r-j, y0+k, ILI9341_MAGENTA);
+    			ILI9341_DrawPixel(x0-k, y0+r+j, 0x2137);
+    			ILI9341_DrawPixel(x0+k, y0+r+j, 0x2137);
 
-    			ILI9341_DrawPixel(x0+r+j, y0-k, ILI9341_MAGENTA);
-    			ILI9341_DrawPixel(x0+r+j, y0+k, ILI9341_MAGENTA);
+    			ILI9341_DrawPixel(x0-r-j, y0-k, 0x2137);
+    			ILI9341_DrawPixel(x0-r-j, y0+k, 0x2137);
+
+    			ILI9341_DrawPixel(x0+r+j, y0-k, 0x2137);
+    			ILI9341_DrawPixel(x0+r+j, y0+k, 0x2137);
     		}
 
-    		ILI9341_DrawPixel(x0+i+j, y0-r+i, ILI9341_MAGENTA);
-    		ILI9341_DrawPixel(x0+i+j, y0+r-i, ILI9341_MAGENTA);
+    		ILI9341_DrawPixel(x0+i+j, y0-r+i, 0x2137);
+    		ILI9341_DrawPixel(x0+i+j, y0+r-i, 0x2137);
 
-    		ILI9341_DrawPixel(x0-i-j, y0-r+i, ILI9341_MAGENTA);
-    		ILI9341_DrawPixel(x0-i-j, y0+r-i, ILI9341_MAGENTA);
+    		ILI9341_DrawPixel(x0-i-j, y0-r+i, 0x2137);
+    		ILI9341_DrawPixel(x0-i-j, y0+r-i, 0x2137);
 
-    	}*/
+    	}
     }
-
-	//ILI9341_DrawLine(3, 18, 32, 0, ILI9341_GREEN);
-	//ILI9341_DrawLine(18, 3, 32, 1, ILI9341_GREEN);
 }
 
