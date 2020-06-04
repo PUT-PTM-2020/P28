@@ -78,6 +78,7 @@ void buttons(uint16_t GPIO_Pin){
 						difficulty=2;
 						r=5;
 					}
+					init_ball(difficulty);
 					ILI9341_FillScreen(background);
 					display_maze(difficulty);
 					time=0;
@@ -132,8 +133,6 @@ void buttons(uint16_t GPIO_Pin){
 void display_menu(){
 	ILI9341_WriteString(56, 1, "POLIMAZE", Font_16x26, textcolor, background);
 	ILI9341_WriteString(21, 30, "Kulka w labiryncie", Font_11x18, textcolor, background);
-
-	ILI9341_WriteString(21, 30, buffer, Font_11x18, textcolor, background);
 
 	switch(place_in_menu){ //miejsce w menu
 	case 1: //poczatek

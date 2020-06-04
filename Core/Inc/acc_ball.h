@@ -14,9 +14,6 @@
 
 int pozycja_x=18;
 int pozycja_y=18;
-int start_x=18;
-int start_y=18;
-
 
 //(0,0)->pierwszy piksel
 //X(120,0)->ostatnia pozycja w prawo->(110,0)->minus ściana(99,0)
@@ -173,6 +170,17 @@ void display_ball(float accX, float accY, char*** walls,int r){
 void reset_ball(){
 	pozycja_x=0;
 	pozycja_y=0;
+}
+
+void init_ball(int difficulty){
+	if(difficulty==1){
+		pozycja_x=18;
+		pozycja_y=18;
+	}
+	if(difficulty==2){
+		pozycja_x=10;
+		pozycja_y=10;
+	}
 }
 
 #endif /* INC_ACC_BALL_H_ */
