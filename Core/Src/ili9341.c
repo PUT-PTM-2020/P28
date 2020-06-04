@@ -336,9 +336,9 @@ void ILI9341_DrawFilledCircle(uint16_t x0, uint16_t y0, uint16_t r, uint16_t col
     	ILI9341_DrawLine(x0, y0 - r, r*2+1, 1, color);
 
 
-    	for(int j=1;j<=3;j++){
+    	for(int j=1;j<=r/3+2;j++){
 
-    		for(int k=0;k<=2;k++){
+    		for(int k=0;k<=3;k++){
     			ILI9341_DrawPixel(x0-k, y0-r-j, 0x2137);
     			ILI9341_DrawPixel(x0+k, y0-r-j, 0x2137);
 
