@@ -12,8 +12,8 @@
 #include "lis3dsh.h"
 
 
-int pozycja_x=0;
-int pozycja_y=0;
+int pozycja_x=18;
+int pozycja_y=18;
 int start_x=18;
 int start_y=18;
 
@@ -117,43 +117,43 @@ int top_wall(float pozycja_x, float pozycja_y,char*** walls){
 }
 void acc_ball(float accX, float accY, char*** walls){
 
-	if(accX>=30 && pozycja_x<203 && right_wall(pozycja_x, pozycja_y,walls)>17)
+	if(accX>=30 && pozycja_x<203 && right_wall(pozycja_x, pozycja_y, walls)>17)
 	{
 		pozycja_x+=1;//ruch w prawo
 	}
-	if(accY>=30 && pozycja_y>0 && top_wall(pozycja_x, pozycja_y,walls)>17)
+	if(accY>=30 && pozycja_y>0 && top_wall(pozycja_x, pozycja_y, walls)>17)
 	{
 		pozycja_y-=1; //ruch piłki w górę
 	}
-	if(accX<=-30 && pozycja_x>0 && left_wall(pozycja_x,pozycja_y,walls)>17)
+	if(accX<=-30 && pozycja_x>0 && left_wall(pozycja_x,pozycja_y, walls)>17)
 	{
 		pozycja_x-=1; //ruch w lewo
 	}
-	if(accY<=-30 && pozycja_y<243 && bottom_wall(pozycja_x, pozycja_y,walls)>17)
+	if(accY<=-30 && pozycja_y<243 && bottom_wall(pozycja_x, pozycja_y, walls)>17)
 	{
 		pozycja_y+=1; //ruch piłki w dół (może uderzycz w górną ściane)
 	}
 
-	if(accX>=350 && pozycja_x<203 && right_wall(pozycja_x, pozycja_y,walls)>16)
+	if(accX>=350 && pozycja_x<203 && right_wall(pozycja_x, pozycja_y, walls)>16)
 	{
 		pozycja_x+=2; //ruch w prawo
 		if(!(pozycja_x<203))
 			pozycja_x=203;
 
 	}
-	if(accY>=350 && pozycja_y>0 && top_wall(pozycja_x, pozycja_y,walls)>16)
+	if(accY>=350 && pozycja_y>0 && top_wall(pozycja_x, pozycja_y, walls)>16)
 	{
 		pozycja_y-=2; //ruch w górę
 		if(!(pozycja_y>0))
 			pozycja_y=0;
 	}
-	if(accX<=-350 && pozycja_x>0 && left_wall(pozycja_x,pozycja_y,walls)>16)
+	if(accX<=-350 && pozycja_x>0 && left_wall(pozycja_x, pozycja_y, walls)>16)
 	{
 		pozycja_x-=2; //ruch w lewo
 		if(!(pozycja_x>0))
 			pozycja_x=0;
 	}
-	if(accY<=-350 && pozycja_y<243 && bottom_wall(pozycja_x, pozycja_y,walls)>16)
+	if(accY<=-350 && pozycja_y<243 && bottom_wall(pozycja_x, pozycja_y, walls)>16)
 	{
 		pozycja_y+=2; //ruch w dół
 		if(!(pozycja_y<243))
@@ -166,7 +166,7 @@ void display_ball(float accX, float accY, char*** walls){
 
 	acc_ball(accX,accY,walls);
 
-	ILI9341_DrawFilledCircle(start_x + pozycja_x, start_y + pozycja_y, 10, 10);
+	ILI9341_DrawFilledCircle(pozycja_x, pozycja_y, 10, 10);
 
 }
 
