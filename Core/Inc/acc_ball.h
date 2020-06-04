@@ -52,7 +52,7 @@ int right_wall(int pozycja_x, int pozycja_y){//,char*** walls){
 					else
 						return od;
 				}
-				if(pozycja_y>=58 && pozycja_y<=64){
+				if(pozycja_y>=18+40*i && pozycja_y<=24+40*i){
 					if(walls[i][j][0]=='1'){
 						od = (pozycja_x-((j+1)*40))*(-1);
 						return od;
