@@ -26,9 +26,7 @@
 
 #include "lis3dsh.h"
 #include "ili9341.h"
-#include <stdlib.h>
 #include "game.h"
-#include "ff.h"
 
 /* USER CODE END Includes */
 
@@ -65,13 +63,6 @@ TIM_HandleTypeDef htim4;
 TIM_HandleTypeDef htim5;
 
 /* USER CODE BEGIN PV */
-
-char buffer[256]; //bufor odczytu i zapisu
-static FATFS FatFs; //uchwyt do urządzenia FatFs (dysku, karty SD...)
-FRESULT fresult; //do przechowywania wyniku operacji na bibliotece FatFs
-FIL file; //uchwyt do otwartego pliku
-WORD bytes_written; //liczba zapisanych byte
-WORD bytes_read; //liczba odczytanych byte
 
 /* USER CODE END PV */
 
@@ -176,6 +167,8 @@ int main(void)
   HAL_TIM_Base_Start_IT(&htim4);
 
   HAL_TIM_Base_Start_IT(&htim3);
+
+
 
   /* USER CODE END 2 */
 

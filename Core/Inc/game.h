@@ -10,6 +10,8 @@ uint16_t place_in_menu=1;
 uint16_t place_in_game=1;
 uint16_t choice=1;
 
+int maze_number;
+
 float accX, accY, accZ, out[4];
 int time=0;
 char cstr[16];
@@ -65,7 +67,7 @@ void buttons(uint16_t GPIO_Pin){
 					break;
 				case 2:
 					place_in_game=2;
-					//init_maze();
+					init_maze(choice,1);
 					ILI9341_FillScreen(background);
 					display_maze();
 					time=0;
@@ -121,6 +123,8 @@ void display_menu(){
 	ILI9341_WriteString(56, 1, "POLIMAZE", Font_16x26, textcolor, background);
 	ILI9341_WriteString(21, 30, "Kulka w labiryncie", Font_11x18, textcolor, background);
 
+	ILI9341_WriteString(21, 30, buffer, Font_11x18, textcolor, background);
+
 	switch(place_in_menu){ //miejsce w menu
 	case 1: //poczatek
 		ILI9341_WriteString(76, 151, "Nowa gra", Font_11x18, selectcolor, background);
@@ -144,7 +148,7 @@ void display_menu(){
 }
 
 void display_game(){
-	display_ball(accX, accY,walls);
+	display_ball(accX, accY, walls);
 	itoa(time, cstr, 10);
 	ILI9341_WriteString(1, 292, cstr, Font_16x26, textcolor, background);
 }
