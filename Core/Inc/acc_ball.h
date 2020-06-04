@@ -28,7 +28,7 @@ bool left_wall(int pozycja_x, int pozycja_y,char*** walls){
 				if(walls[i][j][0]=='1'){
 					//od = pozycja_x-((j+2)*40);
 					od=1;
-					return false;//od;
+					return true;//false;//od;
 				}
 				else{
 					return true;//od;
@@ -45,7 +45,7 @@ bool right_wall(int pozycja_x, int pozycja_y,char*** walls){
 				if(walls[i][j][0]=='1'){
 					//od = pozycja_x-((j+1)*40);
 					od=1;
-					return false;//od;
+					return true;//false;//od;
 				}
 				else{
 					return true;//od;
@@ -63,7 +63,7 @@ bool bottom_wall(int pozycja_x, int pozycja_y,char*** walls){
 					if(walls[i][j][3]=='1'){
 						//od = pozycja_y-((i+1)*40);
 						od=1;
-						return false;//od;
+						return true;//false;//od;
 					}
 					else{
 						return true;//od;
@@ -73,7 +73,7 @@ bool bottom_wall(int pozycja_x, int pozycja_y,char*** walls){
 					if(walls[i][j][1]=='1'){
 						//od = pozycja_y-((i+1)*40);
 						od=1;
-						return false;//od;
+						return true;//false;//od;
 					}
 					else{
 						return true;//od;
@@ -92,7 +92,7 @@ bool top_wall(int pozycja_x, int pozycja_y,char*** walls){
 					if(walls[i][j][3]=='1'){
 						//od = pozycja_y-((i+1)*40);
 						od=1;
-						return false;//od;
+						return true;//false;//od;
 					}
 					else{
 						return true;//od;
@@ -102,7 +102,7 @@ bool top_wall(int pozycja_x, int pozycja_y,char*** walls){
 					if(walls[i][j][1]=='1'){
 						//od = pozycja_y-((i+1)*40);
 						od=1;
-						return false;//od;
+						return true;//false;//od;
 					}
 					else{
 						return true;//od;
