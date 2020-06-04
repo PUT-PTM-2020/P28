@@ -74,10 +74,10 @@ int bottom_wall(float pozycja_x, float pozycja_y,char*** walls){
 						od = pozycja_y-((i+1)*40);
 						return od;
 					}
+					else{
+						return od;
+					}
 				}
-			}
-			else{
-				return od;
 			}
 		}
 	}
@@ -101,53 +101,53 @@ int top_wall(float pozycja_x, float pozycja_y,char*** walls){
 						od = pozycja_y-((i+1)*40);
 						return od;
 					}
+					else{
+						return od;
+					}
 				}
-			}
-			else{
-				return od;
-			}
+			}	
 		}
 	}
 }
 void acc_ball(float accX, float accY, char*** walls){
 
-	if(accX>=30 && pozycja_x<203 && right_wall(pozycja_x, pozycja_y,walls)>18)
+	if(accX>=30 && pozycja_x<203 && right_wall(pozycja_x, pozycja_y,walls)>17)
 	{
 		pozycja_x+=1;//ruch w prawo
 	}
-	if(accY>=30 && pozycja_y>0 && bottom_wall(pozycja_x, pozycja_y,walls)<18)
+	if(accY>=30 && pozycja_y>0 && bottom_wall(pozycja_x, pozycja_y,walls)<17)
 	{
 		pozycja_y-=1; //ruch piłki w górę
 	}
-	if(accX<=-30 && pozycja_x>0 && left_wall(pozycja_x,pozycja_y,walls)>18)
+	if(accX<=-30 && pozycja_x>0 && left_wall(pozycja_x,pozycja_y,walls)>17)
 	{
 		pozycja_x-=1; //ruch w lewo
 	}
-	if(accY<=-30 && pozycja_y<243 && top_wall(pozycja_x, pozycja_y,walls)<18)
+	if(accY<=-30 && pozycja_y<243 && top_wall(pozycja_x, pozycja_y,walls)<17)
 	{
 		pozycja_y+=1; //ruch piłki w dół (może uderzycz w górną ściane)
 	}
 
-	if(accX>=350 && pozycja_x<203)
+	if(accX>=350 && pozycja_x<203 && right_wall(pozycja_x, pozycja_y,walls)>16)
 	{
 		pozycja_x+=2; //ruch w prawo
 		if(!(pozycja_x<203))
 			pozycja_x=203;
 
 	}
-	if(accY>=350 && pozycja_y>0)
+	if(accY>=350 && pozycja_y>0 && bottom_wall(pozycja_x, pozycja_y,walls)<16)
 	{
 		pozycja_y-=2; //ruch w górę
 		if(!(pozycja_y>0))
 			pozycja_y=0;
 	}
-	if(accX<=-350 && pozycja_x>0)
+	if(accX<=-350 && pozycja_x>0 && left_wall(pozycja_x,pozycja_y,walls)>16)
 	{
 		pozycja_x-=2; //ruch w lewo
 		if(!(pozycja_x>0))
 			pozycja_x=0;
 	}
-	if(accY<=-350 && pozycja_y<243)
+	if(accY<=-350 && pozycja_y<243 && top_wall(pozycja_x, pozycja_y,walls)<16)
 	{
 		pozycja_y+=2; //ruch w dół
 		if(!(pozycja_y<243))
