@@ -72,12 +72,14 @@ int right_wall(int pozycja_x, int pozycja_y){//,char*** walls){
 	for (int i=0;i<7;i++){
 		for(int j=0;j<5;j++){
 			if((j*40)<=pozycja_x && pozycja_x<=((j+1)*40) && (i*40)<=pozycja_y && pozycja_y<=((i+1)*40)){
-				if(pozycja_y<58+40*(i-1)){
+				if(pozycja_y<58+40*i){
 					if(walls[i-1][j][0]=='1' || walls[i-1][j][1]=='1' || walls[i-1][j][2]=='1')
 						return 1;
 					else
 						return od;
 				}
+				if(pozycja_y<18)
+					return 1;
 				if(pozycja_y>=18+40*i && pozycja_y<=24+40*i){
 					if(walls[i][j][0]=='1'){
 						od = (pozycja_x-((j+1)*40))*(-1);
