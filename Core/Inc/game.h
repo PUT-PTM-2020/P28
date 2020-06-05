@@ -15,8 +15,8 @@ int maze_number;
 int r;
 
 float accX, accY, accZ, out[4];
-int time=0;
-char cstr[16];
+int minuty=0,sekundy=0;
+char min[3],sek[2];
 
 TIM_HandleTypeDef htim3;
 
@@ -81,7 +81,8 @@ void buttons(uint16_t GPIO_Pin){
 					init_ball(difficulty);
 					ILI9341_FillScreen(background);
 					display_maze(difficulty);
-					time=0;
+					minuty=0;
+					sekundy=0;
 					HAL_TIM_Base_Start_IT(&htim3);
 					return;
 					break;
@@ -158,8 +159,13 @@ void display_menu(){
 
 void display_game(){
 	display_ball(accX, accY, walls,r);
-	itoa(time, cstr, 10);
-	ILI9341_WriteString(1, 292, cstr, Font_16x26, textcolor, background);
+	itoa(sekundy, sek, 10);
+	itoa(minuty, min, 10);
+	ILI9341_WriteString(60, 290, min, Font_11x18, textcolor, background);
+	ILI9341_WriteString(72, 290, ":", Font_11x18, textcolor, background);
+	ILI9341_WriteString(83, 290, sek, Font_11x18, textcolor, background);
+	ILI9341_WriteString(1, 290, "Czas:", Font_11x18, textcolor, background);
+	ILI9341_WriteString(120, 290, "Rekord:", Font_11x18, textcolor, background);
 }
 
 void display_pause(){

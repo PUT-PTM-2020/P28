@@ -109,7 +109,12 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 				butt4++;
 		}
 	if(htim->Instance == TIM3){
-		time++;
+		sekundy++;
+		if(sekundy==60){
+			minuty++;
+			sekundy=0;
+			ILI9341_FillRectangle(94, 290, 11, 30, background);
+		}
 	}
 }
 

@@ -9,7 +9,6 @@
 #define INC_ACC_BALL_H_
 
 #include "ili9341.h"
-#include "lis3dsh.h"
 #include <stdlib.h>
 
 int*** walls;
