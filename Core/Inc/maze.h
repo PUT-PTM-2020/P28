@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include "acc_ball.h"
 
-char buffer[256]; //bufor odczytu i zapisu
+char buffer[575]; //bufor odczytu i zapisu
 static FATFS FatFs; //uchwyt do urządzenia FatFs (dysku, karty SD...)
 FRESULT fresult; //do przechowywania wyniku operacji na bibliotece FatFs
 FIL file; //uchwyt do otwartego pliku
@@ -32,7 +32,7 @@ void init_maze(int difficulty, int maze_number){
 	change_filename(difficulty, maze_number);
 	int buff_index=0;
 	if(difficulty==1){
-		open_maze_file(120, filename);
+		open_maze_file(123, filename);
 		init_walls(difficulty);
 		for (int i=0;i<6;i++){
 			for(int j=0;j<5;j++){
@@ -44,7 +44,7 @@ void init_maze(int difficulty, int maze_number){
 		}
 	}
 	else if (difficulty==2){
-		open_maze_file(572, filename);
+		open_maze_file(575, filename);
 		init_walls(difficulty);
 		for (int i=0;i<13;i++){
 			for(int j=0;j<11;j++){
@@ -55,6 +55,21 @@ void init_maze(int difficulty, int maze_number){
 			}
 		}
 	}
+}
+
+void save_highscore(int difficulty, int maze_number, int czas){
+	change_filename(difficulty, maze_number);
+	fresult = f_mount(&FatFs, "", 0);
+	fresult = f_open(&file, filename, FA_READ);
+	if(difficulty==1){
+		fresult = f_lseek(&file, 120);
+	}
+	else if (difficulty==2){
+		fresult = f_lseek(&file, 572);
+	}
+	char highscore[3];
+	itoa(czas, highscore, 10);
+	fresult = f_write(&file, highscore, 3, &bytes_written);
 }
 
 void display_maze(int difficulty){
