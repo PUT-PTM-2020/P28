@@ -72,6 +72,8 @@ int left_wall(int pozycja_x, int pozycja_y){
 						return od;
 				}
 			}
+			if(0<=pozycja_x && pozycja_x<40)
+				return od;
 		}
 	}
 }
@@ -100,6 +102,8 @@ int right_wall(int pozycja_x, int pozycja_y){
 						return od;
 				}
 			}
+			if(200<=pozycja_x && pozycja_x<240)
+				return od;
 		}
 	}
 }
@@ -128,8 +132,12 @@ int bottom_wall(int pozycja_x, int pozycja_y){
 					}
 				}
 			}
+			if(240<=pozycja_y && pozycja_y<280)
+				return od;			
 		}
 	}
+	else 
+		return od;
 }
 int top_wall(int pozycja_x, int pozycja_y){
 
@@ -156,6 +164,8 @@ int top_wall(int pozycja_x, int pozycja_y){
 					}
 				}
 			}	
+			if(0<=pozycja_y && pozycja_y<40)
+				return od;	
 		}
 	}
 }
