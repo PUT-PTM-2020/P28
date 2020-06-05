@@ -49,6 +49,7 @@ int od=100;
 //-Y(0,-149)->ostatnia pozycja w góre->(0,-139)->minus ściana i dół(0,-100)
 int left_wall(int pozycja_x, int pozycja_y){
 	
+	od=100;
 	for (int i=0;i<7;i++){
 		for(int j=0;j<5;j++){
 			if(((j+1)*40)<=pozycja_x && pozycja_x<((j+2)*40) && (i*40)<=pozycja_y && pozycja_y<((i+1)*40)){
@@ -76,6 +77,7 @@ int left_wall(int pozycja_x, int pozycja_y){
 }
 int right_wall(int pozycja_x, int pozycja_y){
 
+	od=100;
 	for (int i=0;i<7;i++){
 		for(int j=0;j<5;j++){
 			if((j*40)<=pozycja_x && pozycja_x<((j+1)*40) && (i*40)<=pozycja_y && pozycja_y<((i+1)*40)){
@@ -103,6 +105,7 @@ int right_wall(int pozycja_x, int pozycja_y){
 }
 int bottom_wall(int pozycja_x, int pozycja_y){
 
+	od=100;
 	for (int i=0;i<6;i++){
 		for(int j=0;j<6;j++){
 			if((j*40)<=pozycja_x && pozycja_x<=((j+1)*40) && (i*40)<=pozycja_y && pozycja_y<=((i+1)*40)){
@@ -130,6 +133,7 @@ int bottom_wall(int pozycja_x, int pozycja_y){
 }
 int top_wall(int pozycja_x, int pozycja_y){
 
+	od=100;
 	for (int i=0;i<6;i++){
 		for(int j=0;j<6;j++){
 			if((j*40)<=pozycja_x && pozycja_x<=((j+1)*40) && ((i+1)*40)<=pozycja_y && pozycja_y<=((i+2)*40)){
@@ -154,7 +158,6 @@ int top_wall(int pozycja_x, int pozycja_y){
 			}	
 		}
 	}
-	return 0;
 }
 void acc_ball(float accX, float accY, char*** walls){
 

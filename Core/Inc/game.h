@@ -1,6 +1,7 @@
 #include "ili9341.h"
 #include "acc_ball.h"
 #include "maze.h"
+#include <stdlib.h>
 
 uint16_t butt1=0,butt2=0,butt3=0,butt4=0;
 uint16_t background = 0x2137;
@@ -10,15 +11,15 @@ uint16_t place_in_menu=1;
 uint16_t place_in_game=1;
 uint16_t choice=1;
 uint16_t difficulty=1;
-
-int maze_number;
-int r;
+uint16_t maze_number=1;
+uint16_t r;
 
 float accX, accY, accZ, out[4];
-int minuty=0,sekundy=0;
+int minuty=0,sekundy=0,czas=0,highscore=0;
 char min[3],sek[2];
+char cstr[10],rekord_m[1],rekord_s[2],rekord[3];
 
-TIM_HandleTypeDef htim3;
+extern TIM_HandleTypeDef htim3;
 
 void buttons(uint16_t GPIO_Pin){
 	switch (GPIO_Pin){
@@ -30,6 +31,33 @@ void buttons(uint16_t GPIO_Pin){
 				switch(place_in_menu){
 				case 2:
 					choice=1;
+					break;
+				case 3:
+					if(maze_number>1){
+						maze_number--;
+						init_maze(choice,maze_number);
+						itoa(maze_number,cstr,10);
+						if(difficulty==1){
+							rekord[0]=buffer[120];
+							rekord[1]=buffer[121];
+							rekord[2]=buffer[122];
+							highscore=atoi(rekord);
+							minuty=highscore/60;
+							sekundy=highscore%60;
+							itoa(sekundy, rekord_s, 10);
+							itoa(minuty, rekord_m, 10);
+						}
+						else if(difficulty==2){
+							rekord[0]=buffer[572];
+							rekord[1]=buffer[573];
+							rekord[2]=buffer[574];
+							highscore=atoi(rekord);
+							minuty=highscore/60;
+							sekundy=highscore%60;
+							itoa(sekundy, rekord_s, 10);
+							itoa(minuty, rekord_m, 10);
+						}
+					}
 					break;
 				}
 				break;
@@ -47,6 +75,33 @@ void buttons(uint16_t GPIO_Pin){
 				switch(place_in_menu){
 				case 2:
 					choice=2;
+					break;
+				case 3:
+					if(maze_number<99){
+						maze_number++;
+						init_maze(choice,maze_number);
+						itoa(maze_number,cstr,10);
+						if(difficulty==1){
+							rekord[0]=buffer[120];
+							rekord[1]=buffer[121];
+							rekord[2]=buffer[122];
+							highscore=atoi(rekord);
+							minuty=highscore/60;
+							sekundy=highscore%60;
+							itoa(sekundy, rekord_s, 10);
+							itoa(minuty, rekord_m, 10);
+						}
+						else if(difficulty==2){
+							rekord[0]=buffer[572];
+							rekord[1]=buffer[573];
+							rekord[2]=buffer[574];
+							highscore=atoi(rekord);
+							minuty=highscore/60;
+							sekundy=highscore%60;
+							itoa(sekundy, rekord_s, 10);
+							itoa(minuty, rekord_m, 10);
+						}
+					}
 					break;
 				}
 				break;
@@ -68,21 +123,47 @@ void buttons(uint16_t GPIO_Pin){
 					ILI9341_FillRectangle(43, 125, 154, 90, background);
 					break;
 				case 2:
-					place_in_game=2;
-					init_maze(choice,1);
+					place_in_menu=3;
 					if(choice==1){
 						difficulty=1;
 						r=9;
 					}
 					else if(choice==2){
 						difficulty=2;
-						r=5;
+						r=4;
 					}
+					init_maze(choice,maze_number);
+					itoa(maze_number,cstr,10);
+					if(difficulty==1){
+						rekord[0]=buffer[120];
+						rekord[1]=buffer[121];
+						rekord[2]=buffer[122];
+						highscore=atoi(rekord);
+						minuty=highscore/60;
+						sekundy=highscore%60;
+						itoa(sekundy, rekord_s, 10);
+						itoa(minuty, rekord_m, 10);
+					}
+					else if(difficulty==2){
+						rekord[0]=buffer[572];
+						rekord[1]=buffer[573];
+						rekord[2]=buffer[574];
+						highscore=atoi(rekord);
+						minuty=highscore/60;
+						sekundy=highscore%60;
+						itoa(sekundy, rekord_s, 10);
+						itoa(minuty, rekord_m, 10);
+					}
+					ILI9341_FillRectangle(43, 125, 154, 90, background);
+					break;
+				case 3:
+					place_in_game=2;
 					init_ball(difficulty);
-					ILI9341_FillScreen(background);
-					display_maze(difficulty);
 					minuty=0;
 					sekundy=0;
+					czas=0;
+					ILI9341_FillScreen(background);
+					display_maze(difficulty);
 					HAL_TIM_Base_Start_IT(&htim3);
 					return;
 					break;
@@ -98,7 +179,6 @@ void buttons(uint16_t GPIO_Pin){
 				else if(choice==2){
 					place_in_game=1;
 					place_in_menu=1;
-					reset_ball();
 					choice=1;
 					ILI9341_FillScreen(background);
 				}
@@ -111,12 +191,8 @@ void buttons(uint16_t GPIO_Pin){
 
 			switch(place_in_game){
 			case 1:
-				switch(place_in_menu){
-				case 2:
-					place_in_menu=1;
-					ILI9341_FillRectangle(43, 125, 154, 90, background);
-					break;
-				}
+				if(place_in_menu>1)
+					place_in_menu--;
 				break;
 			case 2:
 				//zapauzowanie gry
@@ -154,11 +230,23 @@ void display_menu(){
 			break;
 		}
 		break;
+	case 3:
+		ILI9341_WriteString(54, 125, "Wybierz mape", Font_11x18, textcolor, background);
+		ILI9341_WriteString(114, 155, cstr, Font_11x18, selectcolor, background);
+		ILI9341_WriteString(59, 185, "Rekord:", Font_11x18, textcolor, background);
+		ILI9341_WriteString(147, 185, ":", Font_11x18, textcolor, background);
+		ILI9341_WriteString(136, 185, rekord_m, Font_11x18, textcolor, background);
+		ILI9341_WriteString(158, 185, rekord_s, Font_11x18, textcolor, background);
+		break;
 	}
 }
 
 void display_game(){
 	display_ball(accX, accY, walls,r);
+	minuty=czas/60;
+	sekundy=czas%60;
+	if(sekundy==0)
+		ILI9341_FillRectangle(94, 290, 11, 30, background);
 	itoa(sekundy, sek, 10);
 	itoa(minuty, min, 10);
 	ILI9341_WriteString(60, 290, min, Font_11x18, textcolor, background);
@@ -166,6 +254,9 @@ void display_game(){
 	ILI9341_WriteString(83, 290, sek, Font_11x18, textcolor, background);
 	ILI9341_WriteString(1, 290, "Czas:", Font_11x18, textcolor, background);
 	ILI9341_WriteString(120, 290, "Rekord:", Font_11x18, textcolor, background);
+	ILI9341_WriteString(209, 290, ":", Font_11x18, textcolor, background);
+	ILI9341_WriteString(198, 290, rekord_m, Font_11x18, textcolor, background);
+	ILI9341_WriteString(220, 290, rekord_s, Font_11x18, textcolor, background);
 }
 
 void display_pause(){
