@@ -253,10 +253,10 @@ void display_game(){
 	ILI9341_WriteString(72, 290, ":", Font_11x18, textcolor, background);
 	ILI9341_WriteString(83, 290, sek, Font_11x18, textcolor, background);
 	ILI9341_WriteString(1, 290, "Czas:", Font_11x18, textcolor, background);
-	ILI9341_WriteString(120, 290, "Rekord:", Font_11x18, textcolor, background);
-	ILI9341_WriteString(209, 290, ":", Font_11x18, textcolor, background);
-	ILI9341_WriteString(198, 290, rekord_m, Font_11x18, textcolor, background);
-	ILI9341_WriteString(220, 290, rekord_s, Font_11x18, textcolor, background);
+	ILI9341_WriteString(117, 290, "Rekord:", Font_11x18, textcolor, background);
+	ILI9341_WriteString(206, 290, ":", Font_11x18, textcolor, background);
+	ILI9341_WriteString(195, 290, rekord_m, Font_11x18, textcolor, background);
+	ILI9341_WriteString(217, 290, rekord_s, Font_11x18, textcolor, background);
 }
 
 void display_pause(){
