@@ -112,20 +112,37 @@ int bottom_wall(int pozycja_x, int pozycja_y){
 	od=100;
 	for (int i=0;i<6;i++){
 		for(int j=0;j<6;j++){
-			if((j*40)<=pozycja_x && pozycja_x<=((j+1)*40) && (i*40)<=pozycja_y && pozycja_y<=((i+1)*40)){
+			if((j*40)<=pozycja_x && pozycja_x<((j+1)*40) && (i*40)<=pozycja_y && pozycja_y<((i+1)*40)){
 				if(j<5){
+					if(pozycja_x<17+40*i && pozycja_x>40*i && pozycja_x>17){
+						if(walls[i-1][j][0]=='1' || walls[i-1][j][1]=='1' || walls[i-1][j][2]=='1' || walls[i-1][j][3]=='1')
+							return od = (pozycja_y-((i+1)*40))*(-1);
+						else
+							return od;
+					}
+					
 					if(walls[i][j][3]=='1'){
-						od = (pozycja_y-((i+1)*40))*(-1);
-						return od;
+						return od = (pozycja_y-((i+1)*40))*(-1);
 					}
 					else{
 						return od;
 					}
+					if(pozycja_x>23+40*i){
+						if(walls[i+1][j][0]=='1' || walls[i+1][j][1]=='1' || walls[i+1][j][2]=='1' || walls[i-1][j][3]=='1')
+							return od = (pozycja_y-((j+1)*40))*(-1);
+						else
+							return od;
+					}
 				}
 				else{
+					if(pozycja_x<17+40*i && pozycja_x>40*i && pozycja_x>17){
+						if(walls[i-1][j][0]=='1' || walls[i-1][j][1]=='1' || walls[i-1][j][2]=='1' || walls[i-1][j][3]=='1')
+							return od = (pozycja_y-((i+1)*40))*(-1);
+						else
+							return od;
+					}
 					if(walls[i][j][1]=='1'){
-						od = pozycja_y-((i+1)*40);
-						return od;
+						return od = (pozycja_y-((i+1)*40))*(-1);
 					}
 					else{
 						return od;
@@ -136,15 +153,13 @@ int bottom_wall(int pozycja_x, int pozycja_y){
 				return od;			
 		}
 	}
-	else 
-		return od;
 }
 int top_wall(int pozycja_x, int pozycja_y){
 
 	od=100;
 	for (int i=0;i<6;i++){
 		for(int j=0;j<6;j++){
-			if((j*40)<=pozycja_x && pozycja_x<=((j+1)*40) && ((i+1)*40)<=pozycja_y && pozycja_y<=((i+2)*40)){
+			if((j*40)<=pozycja_x && pozycja_x<((j+1)*40) && ((i+1)*40)<=pozycja_y && pozycja_y<((i+2)*40)){
 				if(j<5){
 					if(walls[i][j][3]=='1'){
 						od = pozycja_y-((i+1)*40);
