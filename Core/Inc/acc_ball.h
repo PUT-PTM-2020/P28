@@ -115,7 +115,7 @@ int bottom_wall(int pozycja_x, int pozycja_y){
 			if((j*40)<=pozycja_x && pozycja_x<((j+1)*40) && (i*40)<=pozycja_y && pozycja_y<((i+1)*40)){
 				if(j<5){
 					if(pozycja_x<17+40*i && pozycja_x>40*i && pozycja_x>17){
-						if(walls[i-1][j][0]=='1' || walls[i-1][j][1]=='1' || walls[i-1][j][2]=='1' || walls[i-1][j][3]=='1')
+						if(walls[i][j-1][0]=='1' || walls[i][j-1][1]=='1' || walls[i][j-1][2]=='1' || walls[i][j-1][3]=='1')
 							return od = (pozycja_y-((i+1)*40))*(-1);
 						else
 							return od;
@@ -127,7 +127,7 @@ int bottom_wall(int pozycja_x, int pozycja_y){
 							return od;
 					}
 					if(pozycja_x>23+40*i){
-						if(walls[i+1][j][0]=='1' || walls[i+1][j][1]=='1' || walls[i+1][j][2]=='1' || walls[i-1][j][3]=='1')
+						if(walls[i][j+1][0]=='1' || walls[i][j+1][1]=='1' || walls[i][j+1][2]=='1' || walls[i][j+1][3]=='1')
 							return od = (pozycja_y-((j+1)*40))*(-1);
 						else
 							return od;
@@ -135,7 +135,7 @@ int bottom_wall(int pozycja_x, int pozycja_y){
 				}
 				else{
 					if(pozycja_x<17+40*i && pozycja_x>40*i && pozycja_x>17){
-						if(walls[i-1][j][0]=='1' || walls[i-1][j][1]=='1' || walls[i-1][j][2]=='1' || walls[i-1][j][3]=='1')
+						if(walls[i][j-1][0]=='1' || walls[i][j-1][1]=='1' || walls[i][j-1][2]=='1' || walls[i][j-1][3]=='1')
 							return od = (pozycja_y-((i+1)*40))*(-1);
 						else
 							return od;
@@ -161,7 +161,7 @@ int top_wall(int pozycja_x, int pozycja_y){
 			if((j*40)<=pozycja_x && pozycja_x<((j+1)*40) && ((i+1)*40)<=pozycja_y && pozycja_y<((i+2)*40)){
 				if(j<5){
 					if(pozycja_x<17+40*i && pozycja_x>40*i && pozycja_x>17){
-						if(walls[i-1][j][0]=='1' || walls[i-1][j][1]=='1' || walls[i-1][j][2]=='1' || walls[i-1][j][3]=='1')
+						if(walls[i][j-1][0]=='1' || walls[i][j-1][1]=='1' || walls[i][j-1][2]=='1' || walls[i][j-1][3]=='1')
 							return od = pozycja_y-((i+1)*40);
 						else
 							return od;
@@ -173,7 +173,7 @@ int top_wall(int pozycja_x, int pozycja_y){
 							return od;
 					}
 					if(pozycja_x>23+40*i){
-						if(walls[i+1][j][0]=='1' || walls[i+1][j][1]=='1' || walls[i+1][j][2]=='1' || walls[i-1][j][3]=='1')
+						if(walls[i][j+1][0]=='1' || walls[i][j+1][1]=='1' || walls[i][j+1][2]=='1' || walls[i][j+1][3]=='1')
 							return od = pozycja_y-((i+1)*40);
 						else
 							return od;
@@ -181,7 +181,7 @@ int top_wall(int pozycja_x, int pozycja_y){
 				}
 				else{
 					if(pozycja_x<17+40*i && pozycja_x>40*i && pozycja_x>17){
-						if(walls[i-1][j][0]=='1' || walls[i-1][j][1]=='1' || walls[i-1][j][2]=='1' || walls[i-1][j][3]=='1')
+						if(walls[i][j-1][0]=='1' || walls[i][j-1][1]=='1' || walls[i][j-1][2]=='1' || walls[i][j-1][3]=='1')
 							return od = pozycja_y-((i+1)*40);
 						else
 							return od;
@@ -227,8 +227,13 @@ void acc_ball(float accX, float accY, char*** walls){
 			pozycja_x=203;
 
 	}
+<<<<<<< HEAD
 	if(accY>=350 && pozycja_y>17 && top_wall(pozycja_x, pozycja_y)>=17)
 	{
+=======
+	if(accY>=350 && pozycja_y>=17 && top_wall(pozycja_x, pozycja_y)>=17)
+	{7
+>>>>>>> branch 'master' of https://github.com/PUT-PTM-2020/P28.git
 		pozycja_y-=2; //ruch w górę
 		if(!(pozycja_y>0) && top_wall(pozycja_x, pozycja_y)>=17)
 			pozycja_y=0;
