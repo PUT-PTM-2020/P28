@@ -52,7 +52,7 @@ int left_wall(int pozycja_x, int pozycja_y){
 	od=100;
 	for (int i=0;i<7;i++){
 		for(int j=0;j<5;j++){
-			if(((j+1)*40)<=pozycja_x && pozycja_x<((j+2)*40) && (i*40)<=pozycja_y && pozycja_y<((i+1)*40)){
+			if(((j+1)*40)<pozycja_x && pozycja_x<((j+2)*40) && (i*40)<pozycja_y && pozycja_y<((i+1)*40)){
 				if(pozycja_y<17+40*i && pozycja_y>40*i && pozycja_y>17){
 					if(walls[i-1][j][0]=='1' || walls[i-1][j][2]=='1' || walls[i-1][j][3]=='1')
 						return od = pozycja_x-((j+2)*40);
@@ -76,13 +76,14 @@ int left_wall(int pozycja_x, int pozycja_y){
 				return od;
 		}
 	}
+	return od;
 }
 int right_wall(int pozycja_x, int pozycja_y){
 
 	od=100;
 	for (int i=0;i<7;i++){
 		for(int j=0;j<5;j++){
-			if((j*40)<=pozycja_x && pozycja_x<((j+1)*40) && (i*40)<=pozycja_y && pozycja_y<((i+1)*40)){
+			if((j*40)<pozycja_x && pozycja_x<((j+1)*40) && (i*40)<pozycja_y && pozycja_y<((i+1)*40)){
 				if(pozycja_y<17+40*i && pozycja_y>40*i && pozycja_y>17){
 					if(walls[i-1][j][0]=='1' || walls[i-1][j][1]=='1' || walls[i-1][j][2]=='1')
 						return od = (pozycja_x-((j+1)*40))*(-1);
@@ -106,13 +107,14 @@ int right_wall(int pozycja_x, int pozycja_y){
 				return od;
 		}
 	}
+	return od;
 }
 int bottom_wall(int pozycja_x, int pozycja_y){
 
 	od=100;
 	for (int i=0;i<6;i++){
 		for(int j=0;j<6;j++){
-			if((j*40)<=pozycja_x && pozycja_x<((j+1)*40) && (i*40)<=pozycja_y && pozycja_y<((i+1)*40)){
+			if((j*40)<pozycja_x && pozycja_x<((j+1)*40) && (i*40)<pozycja_y && pozycja_y<((i+1)*40)){
 				if(j<5){
 					if(pozycja_x<17+40*i && pozycja_x>40*i && pozycja_x>17){
 						if(walls[i-1][j][0]=='1' || walls[i-1][j][1]=='1' || walls[i-1][j][2]=='1' || walls[i-1][j][3]=='1')
@@ -153,13 +155,14 @@ int bottom_wall(int pozycja_x, int pozycja_y){
 				return od;			
 		}
 	}
+	return od;
 }
 int top_wall(int pozycja_x, int pozycja_y){
 
 	od=100;
 	for (int i=0;i<6;i++){
 		for(int j=0;j<6;j++){
-			if((j*40)<=pozycja_x && pozycja_x<((j+1)*40) && ((i+1)*40)<=pozycja_y && pozycja_y<((i+2)*40)){
+			if((j*40)<pozycja_x && pozycja_x<((j+1)*40) && ((i+1)*40)<pozycja_y && pozycja_y<((i+2)*40)){
 				if(j<5){
 					if(walls[i][j][3]=='1'){
 						od = pozycja_y-((i+1)*40);
@@ -183,6 +186,7 @@ int top_wall(int pozycja_x, int pozycja_y){
 				return od;	
 		}
 	}
+	return od;
 }
 void acc_ball(float accX, float accY, char*** walls){
 
@@ -206,8 +210,8 @@ void acc_ball(float accX, float accY, char*** walls){
 	if(accX>=350 && pozycja_x<=223 && right_wall(pozycja_x, pozycja_y)>=17)
 	{
 		pozycja_x+=2; //ruch w prawo
-		if(!(pozycja_x<203))
-			pozycja_x=203;
+		if(!(pozycja_x<223))
+			pozycja_x=223;
 
 	}
 	if(accY>=350 && pozycja_y>=17 && top_wall(pozycja_x, pozycja_y)>=17)
@@ -225,8 +229,8 @@ void acc_ball(float accX, float accY, char*** walls){
 	if(accY<=-350 && pozycja_y<=263 && bottom_wall(pozycja_x, pozycja_y)>=17)
 	{
 		pozycja_y+=2; //ruch w dół
-		if(!(pozycja_y<243))
-			pozycja_y=243;
+		if(!(pozycja_y<263))
+			pozycja_y=263;
 	}
 
 }
