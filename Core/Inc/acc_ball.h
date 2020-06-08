@@ -12,7 +12,6 @@
 #include <stdlib.h>
 
 int*** walls;
-//char walls[6][5][4] = {"0110","1001","0010","1000","0010","1000","0110","1101","0111","1001","0100","1101","0001","1010","0100","0101","0101","0101","1101","0001","0100","0101","0101","0111","0011","0100","0101","0011","1010","1000"};
 
 void init_walls(int difficulty){
 	if(difficulty==1){
@@ -42,39 +41,51 @@ void init_walls(int difficulty){
 int pozycja_x;
 int pozycja_y;
 int od=100;
-//(0,0)->pierwszy piksel
-//X(120,0)->ostatnia pozycja w prawo->(110,0)->minus ściana(99,0)
-//-X(-119,0)->ostatnia pozycja w lewo->(-109,0)->minus ściana(-102,0)
-//Y(0,150)->ostatnia pozycja w góre->(0,140)->minus ściana i dół(0,142)
-//-Y(0,-149)->ostatnia pozycja w góre->(0,-139)->minus ściana i dół(0,-100)
+
 int left_wall(int pozycja_x, int pozycja_y){
 	
 	od=100;
 	for (int i=0;i<7;i++){
 		for(int j=0;j<5;j++){
 			if(((j+1)*40)<pozycja_x && pozycja_x<((j+2)*40) && (i*40)<pozycja_y && pozycja_y<((i+1)*40)){
-				if(pozycja_y<17+40*i && pozycja_y>40*i && pozycja_y>17){
-					if(walls[i-1][j][0]=='1' || walls[i-1][j][2]=='1' || walls[i-1][j][3]=='1')
-						return od = pozycja_x-((j+1)*40);
-					else
-						return od;
+				if(i<6){
+					if(pozycja_y<17+40*i && pozycja_y>40*i && pozycja_y>17){
+						if(walls[i-1][j][0]=='1' || walls[i-1][j][2]=='1' || walls[i-1][j][3]=='1')
+							return od = pozycja_x-((j+1)*40);
+						else
+							return od;
+					}
+					if(pozycja_y>=17+40*i && pozycja_y<=23+40*i){
+						if(walls[i][j][0]=='1')
+							return od = pozycja_x-((j+1)*40);
+						else
+							return od;
+					}
+					if(pozycja_y>23+40*i){
+						if(walls[i][j][0]=='1' || walls[i][j][2]=='1' || walls[i][j][3]=='1')
+							return od = pozycja_x-((j+1)*40);
+						else
+							return od;
+					}
 				}
-				if(pozycja_y>=17+40*i && pozycja_y<=23+40*i){
-					if(walls[i][j][0]=='1')
-						return od = pozycja_x-((j+1)*40);
-					else
-						return od;
-				}
-				if(pozycja_y>23+40*i){
-					if(walls[i][j][0]=='1' || walls[i][j][2]=='1' || walls[i][j][3]=='1')
-						return od = pozycja_x-((j+1)*40);
-					else
-						return od;
+				else{
+					if(pozycja_y<17+40*i && pozycja_y>40*i && pozycja_y>17){
+						if(walls[i-1][j][0]=='1' || walls[i-1][j][2]=='1' || walls[i-1][j][3]=='1')
+							return od = pozycja_x-((j+1)*40);
+						else
+							return od;
+					}
+					if(pozycja_y>=17+40*i && pozycja_y<=23+40*i){
+						if(walls[i-1][j][2]=='1')
+							return od = pozycja_x-((j+1)*40);
+						else
+							return od;
+					}		
 				}
 			}
 			if(0<=pozycja_x && pozycja_x<40)
 				return od;
-		}
+			}
 	}
 	return od;
 }
@@ -84,23 +95,39 @@ int right_wall(int pozycja_x, int pozycja_y){
 	for (int i=0;i<7;i++){
 		for(int j=0;j<5;j++){
 			if((j*40)<pozycja_x && pozycja_x<((j+1)*40) && (i*40)<pozycja_y && pozycja_y<((i+1)*40)){
-				if(pozycja_y<17+40*i && pozycja_y>40*i && pozycja_y>17){
-					if(walls[i-1][j][0]=='1' || walls[i-1][j][1]=='1' || walls[i-1][j][2]=='1')
-						return od = (pozycja_x-((j+1)*40))*(-1);
-					else
-						return od;
+				if(i<6){
+					if(pozycja_y<17+40*i && pozycja_y>40*i && pozycja_y>17){
+						if(walls[i-1][j][0]=='1' || walls[i-1][j][1]=='1' || walls[i-1][j][2]=='1')
+							return od = (pozycja_x-((j+1)*40))*(-1);
+						else
+							return od;
+					}
+					if(pozycja_y>=17+40*i && pozycja_y<=23+40*i){
+						if(walls[i][j][0]=='1')
+							return od = (pozycja_x-((j+1)*40))*(-1);
+						else
+							return od;
+					}
+					if(pozycja_y>23+40*i){
+						if(walls[i][j][0]=='1' || walls[i][j][1]=='1' || walls[i][j][2]=='1')
+							return od = (pozycja_x-((j+1)*40))*(-1);
+						else
+							return od;
+					}
 				}
-				if(pozycja_y>=17+40*i && pozycja_y<=23+40*i){
-					if(walls[i][j][0]=='1')
-						return od = (pozycja_x-((j+1)*40))*(-1);
-					else
-						return od;
-				}
-				if(pozycja_y>23+40*i){
-					if(walls[i][j][0]=='1' || walls[i][j][1]=='1' || walls[i][j][2]=='1')
-						return od = (pozycja_x-((j+1)*40))*(-1);
-					else
-						return od;
+				else{
+					if(pozycja_y<17+40*i && pozycja_y>40*i && pozycja_y>17){
+						if(walls[i-1][j][0]=='1' || walls[i-1][j][1]=='1' || walls[i-1][j][2]=='1')
+							return od = (pozycja_x-((j+1)*40))*(-1);
+						else
+							return od;
+					}
+					if(pozycja_y>=17+40*i && pozycja_y<=23+40*i){
+						if(walls[i-1][j][2]=='1')
+							return od = (pozycja_x-((j+1)*40))*(-1);
+						else
+							return od;
+					}
 				}
 			}
 			if(200<=pozycja_x && pozycja_x<240)
