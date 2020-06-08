@@ -191,8 +191,10 @@ void buttons(uint16_t GPIO_Pin){
 
 			switch(place_in_game){
 			case 1:
-				if(place_in_menu>1)
+				if(place_in_menu>1){
 					place_in_menu--;
+					ILI9341_FillRectangle(43, 125, 155, 83, background);
+				}
 				break;
 			case 2:
 				//zapauzowanie gry
