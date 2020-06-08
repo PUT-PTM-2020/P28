@@ -187,9 +187,10 @@ int top_wall(int pozycja_x, int pozycja_y){
 							return od;
 					}
 					if(pozycja_x>=17+40*i && pozycja_x<=23+40*i){
-						if(walls[i][j][1]=='1')
+						if(walls[i][j][1]=='1'){
 							od = pozycja_y-((i+1)*40);
 							return od;
+						}
 						else
 							return od;
 					}
@@ -202,54 +203,46 @@ int top_wall(int pozycja_x, int pozycja_y){
 }
 void acc_ball(float accX, float accY, char*** walls){
 
-	if(accX>=30 && pozycja_x<=223 && right_wall(pozycja_x, pozycja_y)>=17)
-	if(accX>=30 && pozycja_x<223 && right_wall(pozycja_x, pozycja_y)>=17)
 	if(accX>=30 && pozycja_x<223 && right_wall(pozycja_x, pozycja_y)>=17)
 	{
 		pozycja_x+=1;//ruch w prawo
 	}
-	if(accY>=30 && pozycja_y>=17 && top_wall(pozycja_x, pozycja_y)>=17)
+	if(accY>=30 && pozycja_y>17 && top_wall(pozycja_x, pozycja_y)>=17)
 	{
 		pozycja_y-=1; //ruch piłki w górę
 	}
-	if(accX<=-30 && pozycja_x>=17 && left_wall(pozycja_x,pozycja_y)>=17)
+	if(accX<=-30 && pozycja_x>17 && left_wall(pozycja_x,pozycja_y)>=17)
 	{
 		pozycja_x-=1; //ruch w lewo
 	}
-	if(accY<=-30 && pozycja_y<=263 && bottom_wall(pozycja_x, pozycja_y)>=17)
-	if(accY<=-30 && pozycja_y<263 && bottom_wall(pozycja_x, pozycja_y)>=17)
 	if(accY<=-30 && pozycja_y<263 && bottom_wall(pozycja_x, pozycja_y)>=17)
 	{
 		pozycja_y+=1; //ruch piłki w dół 
 	}
 
-	if(accX>=350 && pozycja_x<=223 && right_wall(pozycja_x, pozycja_y)>=17)
-	if(accX>=350 && pozycja_x<223 && right_wall(pozycja_x, pozycja_y)>=17)
 	if(accX>=350 && pozycja_x<223 && right_wall(pozycja_x, pozycja_y)>=17)
 	{
 		pozycja_x+=2; //ruch w prawo
-		if(!(pozycja_x<203))
+		if(!(pozycja_x<203) && right_wall(pozycja_x, pozycja_y)>=17)
 			pozycja_x=203;
 
 	}
-	if(accY>=350 && pozycja_y>=17 && top_wall(pozycja_x, pozycja_y)>=17)
+	if(accY>=350 && pozycja_y>17 && top_wall(pozycja_x, pozycja_y)>=17)
 	{
 		pozycja_y-=2; //ruch w górę
-		if(!(pozycja_y>0))
+		if(!(pozycja_y>0) && top_wall(pozycja_x, pozycja_y)>=17)
 			pozycja_y=0;
 	}
-	if(accX<=-350 && pozycja_x>=17 && left_wall(pozycja_x, pozycja_y)>=17)
+	if(accX<=-350 && pozycja_x>17 && left_wall(pozycja_x, pozycja_y)>=17)
 	{
 		pozycja_x-=2; //ruch w lewo
-		if(!(pozycja_x>0))
+		if(!(pozycja_x>0) && left_wall(pozycja_x, pozycja_y)>=17)
 			pozycja_x=0;
 	}
-	if(accY<=-350 && pozycja_y<=263 && bottom_wall(pozycja_x, pozycja_y)>=17)
-	if(accY<=-350 && pozycja_y<263 && bottom_wall(pozycja_x, pozycja_y)>=17)
 	if(accY<=-350 && pozycja_y<263 && bottom_wall(pozycja_x, pozycja_y)>=17)
 	{
 		pozycja_y+=2; //ruch w dół
-		if(!(pozycja_y<243))
+		if(!(pozycja_y<243) && bottom_wall(pozycja_x, pozycja_y)>=17)
 			pozycja_y=243;
 	}
 
