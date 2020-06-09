@@ -20,6 +20,7 @@ int pozycja_start;
 int pozycja_x;
 int pozycja_y;
 int od=100;
+int win=0;
 
 void init_walls(int width, int height){
 	walls = (int***) malloc(height*sizeof(***walls));
@@ -41,7 +42,7 @@ int left_wall(int pozycja_x, int pozycja_y){
 	for (int i=0;i<height;i++){
 		for(int j=0;j<width-1;j++){
 			if(((j+1)*point)<pozycja_x && pozycja_x<((j+2)*point) && (i*point)<pozycja_y && pozycja_y<((i+1)*point)){
-				if(i<height){
+				if(i<height-1){
 					if(pozycja_y<pozycja_start+point*i && pozycja_y>point*i && pozycja_y>pozycja_start){
 						if(walls[i-1][j][0]=='1' || walls[i-1][j][2]=='1' || walls[i-1][j][3]=='1')
 							return od = pozycja_x-((j+1)*point);
@@ -62,13 +63,13 @@ int left_wall(int pozycja_x, int pozycja_y){
 					}
 				}
 				else{
-					if(pozycja_y<pozycja_start+point*i && pozycja_y>point*i && pozycja_y>pozycja_start){
+					if(pozycja_y<pozycja_start-1+point*i && pozycja_y>point*i && pozycja_y>pozycja_start){
 						if(walls[i-1][j][0]=='1' || walls[i-1][j][2]=='1' || walls[i-1][j][3]=='1')
 							return od = pozycja_x-((j+1)*point);
 						else
 							return od;
 					}
-					if(pozycja_y>=pozycja_start+point*i && pozycja_y<=point-pozycja_start+point*i){
+					if(pozycja_y>=pozycja_start+point*(i-1) && pozycja_y<=point-pozycja_start+point*i){
 						if(walls[i-1][j][2]=='1')
 							return od = pozycja_x-((j+1)*point);
 						else
@@ -83,7 +84,11 @@ int left_wall(int pozycja_x, int pozycja_y){
 int right_wall(int pozycja_x, int pozycja_y){
 
 	od=100;
-	if(200<=pozycja_x && pozycja_x<240)
+	if (pozycja_x==237-pozycja_start && pozycja_y>=(point*(height-1))-pozycja_start && pozycja_y<=point-pozycja_start+point*height){
+		win=1;
+		return 0;
+	}
+	if(236-pozycja_start<=pozycja_x && pozycja_x<240)
 		return od;
 	for (int i=0;i<height;i++){
 		for(int j=0;j<width-1;j++){
@@ -109,13 +114,13 @@ int right_wall(int pozycja_x, int pozycja_y){
 					}
 				}
 				else{
-					if(pozycja_y<pozycja_start+point*i && pozycja_y>point*i && pozycja_y>pozycja_start){
+					if(pozycja_y<pozycja_start-1+point*i && pozycja_y>point*i && pozycja_y>pozycja_start){
 						if(walls[i-1][j][0]=='1' || walls[i-1][j][1]=='1' || walls[i-1][j][2]=='1')
 							return od = (pozycja_x-((j+1)*point))*(-1);
 						else
 							return od;
 					}
-					if(pozycja_y>=pozycja_start+point*i && pozycja_y<=point-pozycja_start+point*i){
+					if(pozycja_y>=pozycja_start+point*(i-1) && pozycja_y<=point-pozycja_start+point*i){
 						if(walls[i-1][j][2]=='1')
 							return od = (pozycja_x-((j+1)*point))*(-1);
 						else
@@ -130,7 +135,7 @@ int right_wall(int pozycja_x, int pozycja_y){
 int bottom_wall(int pozycja_x, int pozycja_y){
 
 	od=100;
-	if(240<=pozycja_y && pozycja_y<280)
+	if(278-pozycja_start<=pozycja_y && pozycja_y<280)
 		return od;
 	for (int i=0;i<height-1;i++){
 		for(int j=0;j<width;j++){
@@ -223,7 +228,7 @@ int top_wall(int pozycja_x, int pozycja_y){
 }
 void acc_ball(float accX, float accY, char*** walls){
 
-	if(accX>=30 && pozycja_x<=221 && right_wall(pozycja_x, pozycja_y)>pozycja_start)
+	if(accX>=30 && pozycja_x<=237-pozycja_start && right_wall(pozycja_x, pozycja_y)>pozycja_start)
 	{
 		pozycja_x+=1;//ruch w prawo
 	}
@@ -235,12 +240,12 @@ void acc_ball(float accX, float accY, char*** walls){
 	{
 		pozycja_x-=1; //ruch w lewo
 	}
-	if(accY<=-30 && pozycja_y<=261 && bottom_wall(pozycja_x, pozycja_y)>pozycja_start)
+	if(accY<=-30 && pozycja_y<=278-pozycja_start && bottom_wall(pozycja_x, pozycja_y)>pozycja_start)
 	{
 		pozycja_y+=1; //ruch piłki w dół 
 	}
 
-	if(accX>=190 && pozycja_x<=221 && right_wall(pozycja_x, pozycja_y)>pozycja_start)
+	if(accX>=190 && pozycja_x<=237-pozycja_start && right_wall(pozycja_x, pozycja_y)>pozycja_start)
 	{
 		pozycja_x+=1; //ruch w prawo
 	}
@@ -252,12 +257,12 @@ void acc_ball(float accX, float accY, char*** walls){
 	{
 		pozycja_x-=1; //ruch w lewo
 	}
-	if(accY<=-190 && pozycja_y<=261 && bottom_wall(pozycja_x, pozycja_y)>pozycja_start)
+	if(accY<=-190 && pozycja_y<=278-pozycja_start && bottom_wall(pozycja_x, pozycja_y)>pozycja_start)
 	{
 		pozycja_y+=1; //ruch w dół
 	}
 
-	if(accX>=350 && pozycja_x<=221 && right_wall(pozycja_x, pozycja_y)>pozycja_start)
+	if(accX>=350 && pozycja_x<=237-pozycja_start && right_wall(pozycja_x, pozycja_y)>pozycja_start)
 	{
 		pozycja_x+=1; //ruch w prawo
 	}
@@ -269,7 +274,7 @@ void acc_ball(float accX, float accY, char*** walls){
 	{
 		pozycja_x-=1; //ruch w lewo
 	}
-	if(accY<=-350 && pozycja_y<=261 && bottom_wall(pozycja_x, pozycja_y)>pozycja_start)
+	if(accY<=-350 && pozycja_y<=278-pozycja_start && bottom_wall(pozycja_x, pozycja_y)>pozycja_start)
 	{
 		pozycja_y+=1; //ruch w dół
 	}
