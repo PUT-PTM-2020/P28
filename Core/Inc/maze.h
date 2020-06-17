@@ -36,12 +36,12 @@ void open_maze_file(int byte_num, char* filename){
 	fresult = f_close(&file);
 }
 
-void init_maze(int difficulty, int maze_number){
+void init_maze(int difficulty, int maze_number, int width, int height){
 	change_filename(difficulty, maze_number);
 	int buff_index=0;
 	if(difficulty==1){
 		open_maze_file(123, filename);
-		init_walls(difficulty);
+		init_walls(width,height);
 		for (int i=0;i<6;i++){
 			for(int j=0;j<5;j++){
 				for(int k=0;k<4;k++){
@@ -53,7 +53,7 @@ void init_maze(int difficulty, int maze_number){
 	}
 	else if (difficulty==2){
 		open_maze_file(575, filename);
-		init_walls(difficulty);
+		init_walls(width,height);
 		for (int i=0;i<13;i++){
 			for(int j=0;j<11;j++){
 				for(int k=0;k<4;k++){
@@ -68,7 +68,7 @@ void init_maze(int difficulty, int maze_number){
 void save_highscore(int difficulty, int maze_number, int czas){
 	change_filename(difficulty, maze_number);
 	fresult = f_mount(&FatFs, "", 0);
-	fresult = f_open(&file, filename, FA_READ);
+	fresult = f_open(&file, filename, FA_WRITE);
 	if(difficulty==1){
 		fresult = f_lseek(&file, 120);
 	}
@@ -78,6 +78,7 @@ void save_highscore(int difficulty, int maze_number, int czas){
 	char highscore[3];
 	itoa(czas, highscore, 10);
 	fresult = f_write(&file, highscore, 3, &bytes_written);
+	fresult = f_close(&file);
 }
 
 void display_maze(int difficulty){
