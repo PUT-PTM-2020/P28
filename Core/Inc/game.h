@@ -12,10 +12,11 @@ uint16_t place_in_game=1;
 uint16_t choice=1;
 uint16_t difficulty=1;
 uint16_t maze_number=1;
-uint16_t r;
+int r;
+uint16_t lost=0;
 
 float accX, accY, accZ, out[4];
-int minuty=0,sekundy=0,czas=0,highscore=0;
+int minuty=0,sekundy=0,czas=0,highscore=138;
 char min[3],sek[2];
 char cstr[10],rekord_m[1],rekord_s[2],rekord[3];
 
@@ -35,7 +36,7 @@ void buttons(uint16_t GPIO_Pin){
 				case 3:
 					if(maze_number>1){
 						maze_number--;
-						init_maze(choice,maze_number);
+						init_maze(difficulty,maze_number,width,height);
 						itoa(maze_number,cstr,10);
 						if(difficulty==1){
 							rekord[0]=buffer[120];
@@ -77,9 +78,9 @@ void buttons(uint16_t GPIO_Pin){
 					choice=2;
 					break;
 				case 3:
-					if(maze_number<99){
+					if(maze_number<9){
 						maze_number++;
-						init_maze(choice,maze_number);
+						init_maze(difficulty,maze_number,width,height);
 						itoa(maze_number,cstr,10);
 						if(difficulty==1){
 							rekord[0]=buffer[120];
@@ -127,12 +128,20 @@ void buttons(uint16_t GPIO_Pin){
 					if(choice==1){
 						difficulty=1;
 						r=9;
+						pozycja_start=17;
+						width=6;
+						height=7;
+						point=40;
 					}
 					else if(choice==2){
 						difficulty=2;
 						r=4;
+						pozycja_start=9;
+						width=12;
+						height=14;
+						point=20;
 					}
-					init_maze(choice,maze_number);
+					init_maze(difficulty,maze_number,width,height);
 					itoa(maze_number,cstr,10);
 					if(difficulty==1){
 						rekord[0]=buffer[120];
@@ -164,6 +173,7 @@ void buttons(uint16_t GPIO_Pin){
 					czas=0;
 					ILI9341_FillScreen(background);
 					display_maze(difficulty);
+					ILI9341_FillRectangle(237, (height-1)*point, 3, point, ILI9341_GREEN);
 					HAL_TIM_Base_Start_IT(&htim3);
 					return;
 					break;
@@ -174,6 +184,7 @@ void buttons(uint16_t GPIO_Pin){
 					place_in_game=2;
 					ILI9341_FillRectangle(0, 125, 240, 90, background);
 					display_maze(difficulty);
+					ILI9341_FillRectangle(237, (height-1)*point, 3, point, ILI9341_GREEN);
 					HAL_TIM_Base_Start_IT(&htim3);
 				}
 				else if(choice==2){
@@ -182,6 +193,20 @@ void buttons(uint16_t GPIO_Pin){
 					choice=1;
 					ILI9341_FillScreen(background);
 				}
+				break;
+			case 4:
+				place_in_game=1;
+				place_in_menu=1;
+				choice=1;
+				win=0;
+				ILI9341_FillScreen(background);
+				break;
+			case 5:
+				place_in_game=1;
+				place_in_menu=1;
+				choice=1;
+				lost=0;
+				ILI9341_FillScreen(background);
 				break;
 			}
 			break;
@@ -247,6 +272,9 @@ void display_game(){
 	display_ball(accX, accY, walls,r);
 	minuty=czas/60;
 	sekundy=czas%60;
+	if(minuty==10){
+		lost=1;
+	}
 	if(sekundy==0)
 		ILI9341_FillRectangle(94, 290, 11, 30, background);
 	itoa(sekundy, sek, 10);
@@ -276,6 +304,17 @@ void display_pause(){
 	}
 }
 
+void display_win(){
+	ILI9341_WriteString(76, 126, "Wygrales", Font_11x18, textcolor, background);
+	ILI9341_WriteString(48, 160, "Wyjdz do menu", Font_11x18, selectcolor, background);
+}
+
+void display_lost(){
+	ILI9341_WriteString(48, 126, "Przekroczyles", Font_11x18, textcolor, background);
+	ILI9341_WriteString(4, 146, "10 minut. Przegrales!", Font_11x18, textcolor, background);
+	ILI9341_WriteString(48, 166, "Wyjdz do menu", Font_11x18, selectcolor, background);
+}
+
 void game(){
 	switch(place_in_game){
 		case 1:
@@ -283,8 +322,29 @@ void game(){
 			break;
 		case 2:
 			display_game();
+			if(win==1){
+				HAL_TIM_Base_Stop_IT(&htim3);
+				place_in_game=4;
+				if(czas>highscore)
+					save_highscore(difficulty,maze_number,czas);
+				ILI9341_FillRectangle(0, 125, 240, 60, background);
+				choice=1;
+			}
+			if(lost==1){
+				HAL_TIM_Base_Stop_IT(&htim3);
+				place_in_game=5;
+				ILI9341_FillRectangle(0, 125, 240, 70, background);
+				choice=1;
+			}
 			break;
 		case 3:
 			display_pause();
-		}
+			break;
+		case 4:
+			display_win();
+			break;
+		case 5:
+			display_lost();
+			break;
+	}
 }
