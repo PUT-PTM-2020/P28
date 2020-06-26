@@ -47,6 +47,8 @@ void buttons(uint16_t GPIO_Pin){
 							sekundy=highscore%60;
 							itoa(sekundy, rekord_s, 10);
 							itoa(minuty, rekord_m, 10);
+							if(sekundy<10)
+								ILI9341_FillRectangle(169, 185, 11, 18, background);
 						}
 						else if(difficulty==2){
 							rekord[0]=buffer[572];
@@ -57,6 +59,8 @@ void buttons(uint16_t GPIO_Pin){
 							sekundy=highscore%60;
 							itoa(sekundy, rekord_s, 10);
 							itoa(minuty, rekord_m, 10);
+							if(sekundy<10)
+								ILI9341_FillRectangle(169, 185, 11, 18, background);
 						}
 					}
 					break;
@@ -91,6 +95,8 @@ void buttons(uint16_t GPIO_Pin){
 							sekundy=highscore%60;
 							itoa(sekundy, rekord_s, 10);
 							itoa(minuty, rekord_m, 10);
+							if(sekundy<10)
+								ILI9341_FillRectangle(169, 185, 11, 18, background);
 						}
 						else if(difficulty==2){
 							rekord[0]=buffer[572];
@@ -101,6 +107,8 @@ void buttons(uint16_t GPIO_Pin){
 							sekundy=highscore%60;
 							itoa(sekundy, rekord_s, 10);
 							itoa(minuty, rekord_m, 10);
+							if(sekundy<10)
+								ILI9341_FillRectangle(169, 185, 11, 18, background);
 						}
 					}
 					break;
@@ -152,6 +160,8 @@ void buttons(uint16_t GPIO_Pin){
 						sekundy=highscore%60;
 						itoa(sekundy, rekord_s, 10);
 						itoa(minuty, rekord_m, 10);
+						if(sekundy<10)
+							ILI9341_FillRectangle(169, 185, 11, 18, background);
 					}
 					else if(difficulty==2){
 						rekord[0]=buffer[572];
@@ -162,6 +172,8 @@ void buttons(uint16_t GPIO_Pin){
 						sekundy=highscore%60;
 						itoa(sekundy, rekord_s, 10);
 						itoa(minuty, rekord_m, 10);
+						if(sekundy<10)
+							ILI9341_FillRectangle(169, 185, 11, 18, background);
 					}
 					ILI9341_FillRectangle(43, 125, 154, 90, background);
 					break;
@@ -325,7 +337,7 @@ void game(){
 			if(win==1){
 				HAL_TIM_Base_Stop_IT(&htim3);
 				place_in_game=4;
-				if(czas>highscore)
+				if(czas<highscore || highscore==0)
 					save_highscore(difficulty,maze_number,czas);
 				ILI9341_FillRectangle(0, 125, 240, 60, background);
 				choice=1;
