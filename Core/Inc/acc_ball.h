@@ -163,13 +163,13 @@ int bottom_wall(int pozycja_x, int pozycja_y){
 					}
 				}
 				else{
-					if(pozycja_x>=pozycja_start+point*j && pozycja_x<=point-pozycja_start+point*j){
+					if(pozycja_x>=pozycja_start-1+point*j && pozycja_x<=point-pozycja_start+point*j){
 						if(walls[i][j-1][1]=='1')
 							return od = (pozycja_y-((i+1)*point))*(-1);
 						else
 							return od;
 					}
-					if(pozycja_x<pozycja_start+point*j && pozycja_x>point*j && pozycja_x>pozycja_start){
+					if(pozycja_x<pozycja_start+point*j && pozycja_x>=point*j && pozycja_x>pozycja_start){
 						if(walls[i][j-1][0]=='1' || walls[i][j-1][1]=='1' || walls[i][j-1][2]=='1' || walls[i][j-1][3]=='1')
 							return od = (pozycja_y-((i+1)*point))*(-1);
 						else
@@ -210,13 +210,13 @@ int top_wall(int pozycja_x, int pozycja_y){
 					}
 				}
 				else{
-					if(pozycja_x>=pozycja_start+point*j && pozycja_x<=point-pozycja_start+point*j){
+					if(pozycja_x>=pozycja_start-1+point*j && pozycja_x<=point-pozycja_start+point*j){
 						if(walls[i][j-1][1]=='1')
 							return od = pozycja_y-((i+1)*point);
 						else
 							return od;
 					}
-					if(pozycja_x<pozycja_start+point*j && pozycja_x>point*j && pozycja_x>pozycja_start){
+					if(pozycja_x<pozycja_start+point*j && pozycja_x>=point*j && pozycja_x>pozycja_start){
 						if(walls[i][j-1][0]=='1' || walls[i][j-1][1]=='1' || walls[i][j-1][2]=='1' || walls[i][j-1][3]=='1')
 							return od = pozycja_y-((i+1)*point);
 						else
@@ -286,21 +286,13 @@ void acc_ball(float accX, float accY, char*** walls){
 
 void display_ball(float accX, float accY, char*** walls,int r){
 
-	acc_ball(accX,accY,walls);
-
 	ILI9341_DrawFilledCircle(pozycja_x, pozycja_y, r, 10);
-
+	acc_ball(accX,accY,walls);
 }
 
 void init_ball(int difficulty){
-	if(difficulty==1){
-		pozycja_x=pozycja_start;
-		pozycja_y=pozycja_start;
-	}
-	if(difficulty==2){
-		pozycja_x=pozycja_start;
-		pozycja_y=pozycja_start;
-	}
+	pozycja_x=pozycja_start;
+	pozycja_y=pozycja_start;
 }
 
 #endif /* INC_ACC_BALL_H_ */

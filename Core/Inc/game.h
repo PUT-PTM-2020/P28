@@ -136,7 +136,7 @@ void buttons(uint16_t GPIO_Pin){
 					else if(choice==2){
 						difficulty=2;
 						r=4;
-						pozycja_start=9;
+						pozycja_start=10;
 						width=12;
 						height=14;
 						point=20;
